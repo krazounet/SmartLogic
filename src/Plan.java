@@ -2,6 +2,7 @@ import Enum.Piece;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Plan {
 
@@ -22,9 +23,26 @@ public class Plan {
             list_lieu.add(new Lieu(piece,list_pieces_connectes));
         }
 
+    }
 
-     //   List<Conexion> list_con = Conexion.getList_conexions_retenues();
+    public Lieu getRandomLieu(){
+        return list_lieu.get(new Random().nextInt(list_lieu.size()));
+    }
 
+    public Lieu getLieuFromPiece(Piece piece){
+        for (Lieu lieu : list_lieu){
+            if (lieu.piece == piece) return lieu;
 
+        }
+        return null;
+    }
+
+    @Override
+    public String toString() {
+        String s="";
+        for (Lieu l : list_lieu){
+            s=s+l.toString();
+        }
+        return s;
     }
 }

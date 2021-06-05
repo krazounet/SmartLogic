@@ -9,6 +9,7 @@ public class ConfigPartie {
     public static int nombre_connexion=7;
     public static int nombre_perso=4;
     public static int nombre_moment=4;
+    public static int nombre_indices=10;
     public static boolean autorise_culdesac=true;//non implémenté
 
     public static List<Piece> list_toutes_pieces = new ArrayList<Piece>(Arrays.asList(Piece.values()));
@@ -24,21 +25,21 @@ public class ConfigPartie {
     public static List<Piece> getList_pieces_partie(){
         List<Piece> list_a_retourner = new ArrayList<Piece>();
         for(int i=0; i<nombre_lieu;i++){
-            list_a_retourner.add(list_toutes_pieces.get(0));
+            list_a_retourner.add(list_toutes_pieces.get(i));
         }
         return list_a_retourner;
     }
     private static List<Moment> getList_moments_partie() {
         List<Moment> list_a_retourner = new ArrayList<Moment>();
         for(int i=0; i<nombre_moment;i++){
-            list_a_retourner.add(list_tous_moments.get(0));
+            list_a_retourner.add(list_tous_moments.get(i));
         }
         return list_a_retourner;
     }
     private static List<Personne> getList_personnes_partie() {
         List<Personne> list_a_retourner = new ArrayList<Personne>();
         for(int i=0; i<nombre_perso;i++){
-            list_a_retourner.add(list_toutes_personnes.get(0));
+            list_a_retourner.add(list_toutes_personnes.get(i));
         }
         return list_a_retourner;
     }
