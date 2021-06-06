@@ -2,7 +2,7 @@ import Enum.*;
 import java.util.ArrayList;
 import java.util.List;
 
-//Le personage P est avec le perosnnage P ay moment M
+//Le personage P est avec le personnage P au moment M
 public final class Indice_P_P_M extends Indice{
     List <Personne> list_personne;
     Moment moment;
