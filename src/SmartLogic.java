@@ -1,7 +1,7 @@
 
 public final class SmartLogic {
 
-    public static String repertoire = ""; // Test
+    public static String repertoire = "";
 
     public static void main(String[] args) {
         Problem p = new Problem();
