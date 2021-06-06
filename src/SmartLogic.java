@@ -6,7 +6,7 @@ public final class SmartLogic {
     public static void main(String[] args) {
         Problem p = new Problem();
         p.export();
-        System.out.println(p.toString());
+        System.out.println(p);
     }
 
 }

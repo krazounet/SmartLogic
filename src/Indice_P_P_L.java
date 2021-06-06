@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
-//Le personage P est avec le personnage P au moment M
+//Le personage P est avec le personnage P dans la piece L
 public final class Indice_P_P_L extends Indice{
     List <Personne> list_personne;
     Piece piece;
@@ -50,6 +50,13 @@ public final class Indice_P_P_L extends Indice{
     @Override
     public BufferedImage export() {
         BufferedImage image_indice = new BufferedImage((list_personne.size()+1)*100,100,BufferedImage.TYPE_INT_ARGB);
-        return super.export();
+        BufferedImage image_piece = DrawTools.getImage("image\\"+piece+".png");
+        DrawTools.drawImageCenter(image_indice.getGraphics(),image_piece,50,50);
+        for (int index_pers=0;index_pers<list_personne.size();index_pers++){
+            BufferedImage image_pers = DrawTools.getImage("image\\"+list_personne.get(index_pers)+".png");
+            DrawTools.drawImageCenter(image_indice.getGraphics(),image_pers,150+(index_pers*100),50);
+
+        }
+        return image_indice;
     }
 }
