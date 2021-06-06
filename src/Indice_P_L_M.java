@@ -20,6 +20,16 @@ Moment moment;
         moment=m;
 
     }
+    
+    public boolean check(Solution solution)
+    {
+    	for (Reservation reservation : solution.solution)
+    	{
+    		if(reservation.personne == this.personne && reservation.lieu.piece == this.piece && reservation.moment == this.moment)
+    			return(true);
+        }
+    	return(false);
+    }
 
     public static List<Indice_P_L_M> all_PLM(Solution solution){
     List<Indice_P_L_M> list_a_retourner =new ArrayList<>();
