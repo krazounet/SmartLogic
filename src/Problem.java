@@ -31,12 +31,26 @@ public class Problem {
         Collections.shuffle(liste_tous_les_indices);
 
         List<Indice> liste_indices_retenus =new ArrayList<>();
-        for (int index_indice = 0; index_indice<ConfigPartie.nombre_positions_depart;index_indice++){
-            liste_indices_retenus.add(liste_indices_depart.get(index_indice));
-        }
-        for (int index_indice = 0; index_indice<ConfigPartie.nombre_indices;index_indice++){
-            liste_indices_retenus.add(liste_tous_les_indices.get(index_indice));
-        }
+
+        boolean monoSolution = false;
+        
+        do
+        {
+        	liste_indices_retenus.clear();
+
+        	for (int index_indice = 0; index_indice<ConfigPartie.nombre_positions_depart;index_indice++){
+	            liste_indices_retenus.add(liste_indices_depart.get(index_indice));
+	        }
+        
+	        for (int index_indice = 0; index_indice<ConfigPartie.nombre_indices;index_indice++){
+	            liste_indices_retenus.add(liste_tous_les_indices.get(index_indice));
+	            if(Solveur.getNbSolutions(solution, list_indices) == 1)
+	            {
+	            	monoSolution = true;
+	            	break;
+	            }
+	        }
+        } while(!monoSolution);
 
         list_indices=       liste_indices_retenus;
 
