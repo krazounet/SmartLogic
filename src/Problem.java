@@ -55,14 +55,19 @@ public class Problem {
         return retour;
     }
     public void export(){
-        plan.export();
+
         BufferedImage fond = DrawTools.getImage(SmartLogic.repertoire+"Image\\FondSmartLogic.png");
-        BufferedImage rosace = DrawTools.getImage(SmartLogic.repertoire+"export\\rosace.png");
-        DrawTools.drawImageTransformed(fond.getGraphics(),rosace,500,500,0,100);
+        //BufferedImage rosace = DrawTools.getImage(SmartLogic.repertoire+"export\\rosace.png");
+        DrawTools.drawImageTransformed(fond.getGraphics(),plan.export(),500,500,0,100);
 
         int ybase=1050;
         for(int i=0;i<list_indices.size();i++){
-            DrawTools.drawText(fond,list_indices.get(i).description,500,ybase+(i*30),"Arial", Color.BLACK,30,0);
+            Indice ind = list_indices.get(i);
+            DrawTools.drawText(fond,ind.description,500,ybase+(i*30),"Arial", Color.BLACK,30,0);
+            BufferedImage img_ind=ind.export();
+            if (img_ind!=null){
+                DrawTools.drawImageTransformed(fond.getGraphics(),img_ind,1800,1200+(i*100),0,100);
+            }
         }
 
         BufferedImage tableau = DrawTools.getImage(SmartLogic.repertoire+"Image\\4m"+ConfigPartie.nombre_lieu+"L.png");

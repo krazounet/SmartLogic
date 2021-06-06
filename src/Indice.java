@@ -1,5 +1,7 @@
 import Enum.*;
 
+import java.awt.image.BufferedImage;
+
 public abstract class Indice {
     TypeIndice typeIndice;
     String description;
@@ -12,5 +14,9 @@ public abstract class Indice {
                 ", description='" + description + '\'' +
                 ", negation=" + negation +
                 '}';
+    }
+
+    public BufferedImage export() {
+        return null;
     }
 }

@@ -51,7 +51,7 @@ public class Plan {
         }
         return s;
     }
-    public void export(){
+    public BufferedImage export(){
         BufferedImage fond_rosace = DrawTools.getImage(SmartLogic.repertoire+"image\\Rosace.png");
         for (Conexion con : list_conexions){
             if( (con.contains(Piece.A)) && (con.contains(Piece.B))) { DrawTools.drawLine(fond_rosace,600,215,680,275, Color.black);}
@@ -66,5 +66,6 @@ public class Plan {
             if( (con.contains(Piece.D)) && (con.contains(Piece.E))) { DrawTools.drawLine(fond_rosace,300,730,385,785, Color.black);}
         }
         DrawTools.saveFile(fond_rosace,SmartLogic.repertoire+"export\\rosace.png");
+        return fond_rosace;
     }
 }

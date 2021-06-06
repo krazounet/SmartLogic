@@ -1,4 +1,6 @@
 import Enum.*;
+
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,5 +40,17 @@ Moment moment;
 
         }
         return list_a_retourner;
+    }
+
+    @Override
+    public BufferedImage export() {
+        BufferedImage image_indice = new BufferedImage(300,100,BufferedImage.TYPE_INT_ARGB);
+        BufferedImage img_personne = DrawTools.getImage(SmartLogic.repertoire+"image\\"+personne+".png");
+        BufferedImage img_moment = DrawTools.getImage(SmartLogic.repertoire+"image\\"+moment+".png");
+        BufferedImage img_lieu = DrawTools.getImage(SmartLogic.repertoire+"image\\"+piece+".png");
+        DrawTools.drawImageTransformed(image_indice.getGraphics(),img_personne,50,50,0,100);
+        DrawTools.drawImageTransformed(image_indice.getGraphics(),img_moment,150,50,0,100);
+        DrawTools.drawImageTransformed(image_indice.getGraphics(),img_lieu,250,50,0,100);
+        return image_indice;
     }
 }

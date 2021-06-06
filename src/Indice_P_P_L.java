@@ -1,4 +1,6 @@
 import Enum.*;
+
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,5 +47,9 @@ public final class Indice_P_P_L extends Indice{
         return list_a_retourner;
     }
 
-
+    @Override
+    public BufferedImage export() {
+        BufferedImage image_indice = new BufferedImage((list_personne.size()+1)*100,100,BufferedImage.TYPE_INT_ARGB);
+        return super.export();
+    }
 }
