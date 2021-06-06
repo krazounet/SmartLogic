@@ -42,4 +42,12 @@ public boolean contains (Piece piece_a_tester){
         if (piece_a_tester == Piece2) return Piece1;
         return null;
     }
+
+    @Override
+    public String toString() {
+        return "Conexion{" +
+                "Piece1=" + Piece1 +
+                ", Piece2=" + Piece2 +
+                '}';
+    }
 }

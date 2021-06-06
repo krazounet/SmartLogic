@@ -2,13 +2,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import Enum.*;
-import org.jetbrains.annotations.NotNull;
+
 
 public class ConfigPartie {
     public static int nombre_lieu=5;
-    public static int nombre_connexion=7;
-    public static int nombre_perso=4;
+    public static int nombre_connexion=6;
+    public static int nombre_perso=5;
     public static int nombre_moment=4;
+    public static int nombre_positions_depart=5;
     public static int nombre_indices=10;
     public static boolean autorise_culdesac=true;//non implémenté
 

@@ -12,18 +12,24 @@ public class Problem {
         plan =new Plan();
         solution = new Solution(plan);
         //algo indice ici
+
+        List<Indice_P_L_M> liste_indices_depart = new ArrayList<>(Indice_P_L_M.all_PLM(solution));
+        Collections.shuffle(liste_indices_depart);
+
         List<Indice> liste_tous_les_indices =new ArrayList<>();
-        liste_tous_les_indices.addAll(Indice_P_L_M.all_PLM(solution));
         liste_tous_les_indices.addAll(Indice_x_P_L.all_xPL(solution));
         liste_tous_les_indices.addAll(Indice_x_L_M.all_xPL(solution));
         liste_tous_les_indices.addAll(Indice_x_L.all_xL(solution));
         liste_tous_les_indices.addAll(Indice_x_Ldiff_M.all_xLdiffM(solution));
         liste_tous_les_indices.addAll(Indice_x_Ldiff_P.all_xLdiffP(solution));
-
+        liste_tous_les_indices.addAll(Indice_P_P_M.all_PPM(solution));
 
         Collections.shuffle(liste_tous_les_indices);
 
         List<Indice> liste_indices_retenus =new ArrayList<>();
+        for (int index_indice = 0; index_indice<ConfigPartie.nombre_positions_depart;index_indice++){
+            liste_indices_retenus.add(liste_indices_depart.get(index_indice));
+        }
         for (int index_indice = 0; index_indice<ConfigPartie.nombre_indices;index_indice++){
             liste_indices_retenus.add(liste_tous_les_indices.get(index_indice));
         }
