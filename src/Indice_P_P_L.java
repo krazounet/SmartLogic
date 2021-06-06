@@ -10,7 +10,7 @@ public final class Indice_P_P_L extends Indice{
     Piece piece;
 
     public Indice_P_P_L(String desc, boolean negation,List<Personne> lp, Piece piece) {
-        super.typeIndice =TypeIndice.P_P_M;
+        super.typeIndice =TypeIndice.P_P_L;
         super.description=desc;
         super.negation=negation;
         this.list_personne = lp;

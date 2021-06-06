@@ -6,4 +6,5 @@ public enum TypeIndice {
     x_L_M,  //combien de fois le lieu L au moment M
     x_L,   //occurence totale de L dans le graphe
     P_P_M,
+    P_P_L,
 }
