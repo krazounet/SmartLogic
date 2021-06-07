@@ -3,7 +3,7 @@ import Enum.*;
 import java.util.ArrayList;
 import java.util.List;
 
-//nombre d occurence que Lieu au moment M
+//nombre de personne dans Lieu au moment M
 public final class Indice_x_L_M extends Indice {
     int combien;
     Moment moment;
@@ -17,6 +17,12 @@ public final class Indice_x_L_M extends Indice {
         this.piece = piece;
     }
 
+    @Override
+    public boolean check(Solution solution)
+    {
+    	return(solution.stats.get("Grp_" + this.moment.name() + this.piece.name()).equals("" + combien));
+    }
+
     public static List<Indice_x_L_M> all_xPL(Solution solution) {
         List<Indice_x_L_M> list_a_retourner = new ArrayList<>();
         for (Moment moment : ConfigPartie.list_moments_partie){
@@ -26,7 +32,7 @@ public final class Indice_x_L_M extends Indice {
                 for (Reservation reservation : solution.solution){
                     if ((reservation.lieu.piece == piece)&&(reservation.moment==moment)) compteur++;
                 }
-                list_a_retourner.add(new Indice_x_L_M(compteur,moment,piece,compteur+" personne(s) est(sont) dans la pièce "+piece+" au moment "+moment,false));
+                list_a_retourner.add(new Indice_x_L_M(compteur,moment,piece,compteur+" personne(s) est(sont) dans la piece "+piece+" au moment "+moment,false));
                 //ici on peut faire la négation
                 //
             }

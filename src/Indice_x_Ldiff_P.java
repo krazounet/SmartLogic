@@ -15,6 +15,12 @@ public final class Indice_x_Ldiff_P extends Indice{
 
     }
 
+    @Override
+    public boolean check(Solution solution)
+    {
+    	return(solution.stats.get("OcLP_" + this.personne.name()).equals("" + combien));
+    }
+
     public static List<Indice_x_Ldiff_P> all_xLdiffP(Solution solution) {
         List<Indice_x_Ldiff_P> list_a_retourner = new ArrayList<>();
         for (Personne personne : ConfigPartie.list_personnes_partie){
@@ -22,9 +28,11 @@ public final class Indice_x_Ldiff_P extends Indice{
             //
             List<Piece> list_piece_tmp=new ArrayList<>();
             for (Reservation reservation : solution.solution){
+            	if(reservation.personne != personne)
+            		continue;
                 if (! list_piece_tmp.contains(reservation.lieu.piece)  ) list_piece_tmp.add(reservation.lieu.piece);
             }
-            list_a_retourner.add(new Indice_x_Ldiff_P(list_piece_tmp.size(),personne,"La personne "+personne+" a visité "+list_piece_tmp.size()+" pièces différentes.",false));
+            list_a_retourner.add(new Indice_x_Ldiff_P(list_piece_tmp.size(),personne,"La personne "+personne+" a visite "+list_piece_tmp.size()+" pieces differentes",false));
             //ici on peut faire la négation
             //
 

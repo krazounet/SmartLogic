@@ -16,6 +16,12 @@ public final class Indice_P_P_M extends Indice{
         this.moment = moment;
     }
 
+    @Override
+    public boolean check(Solution solution)
+    {
+    	return(solution.stats.get("Met_" + this.list_personne.get(0).name() + this.list_personne.get(1).name() + this.moment.name()) != null);
+    }
+
     public static List<Indice_P_P_M> all_PPM(Solution solution){
         List<Indice_P_P_M> list_a_retourner =new ArrayList<>();
         for(Moment moment : ConfigPartie.list_moments_partie){
@@ -33,7 +39,7 @@ public final class Indice_P_P_M extends Indice{
                     for(Personne personne : list_p_temp){
                         desc=desc+personne+" ,";
                     }
-                    desc=desc+" sont dans la même piece au moment "+moment+".";
+                    desc=desc+" sont dans la meme piece au moment "+moment;
                     list_a_retourner.add(new Indice_P_P_M(desc, false,list_p_temp,moment));
                 }
 
