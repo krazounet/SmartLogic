@@ -1,12 +1,11 @@
-import java.util.ArrayList;
+import Enum.Piece;
+
 import java.util.List;
 import java.util.Random;
 
-import Enum.*;
-
 public class Lieu {
     Piece piece;
-    List<Piece> lien =new ArrayList<>();
+    List<Piece> lien;
 
     public Lieu(Piece piece, List<Piece> lien) {
         this.piece = piece;

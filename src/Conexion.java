@@ -2,6 +2,7 @@ import Enum.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 public class Conexion {
@@ -40,6 +41,18 @@ public class Conexion {
 	        	listOK = true;
 	        else
 	        {
+				HashMap<Piece,Integer> nbOccurenceLieu = new HashMap<>();
+				for(Piece piece :ConfigPartie.list_pieces_partie)//
+					nbOccurenceLieu.put(piece,0);
+				for(Conexion conexionToTest : list_a_retourner)
+				{
+					nbOccurenceLieu.put(conexionToTest.Piece1,nbOccurenceLieu.get(conexionToTest.Piece1)+1 );
+					nbOccurenceLieu.put(conexionToTest.Piece2,nbOccurenceLieu.get(conexionToTest.Piece2)+1 );
+				}
+				if(!nbOccurenceLieu.values().contains(1))listOK = true;
+					// ; n < ConfigPartie.list_pieces_partie.size(); n++)
+
+				/*
 	        	List<Integer> nbOccurenceLieu = new ArrayList<Integer>();
 	        	for(int n = 0; n < ConfigPartie.list_pieces_partie.size(); n++)
 	        		nbOccurenceLieu.add(0);
@@ -54,6 +67,8 @@ public class Conexion {
 	        	
 	        	if(!nbOccurenceLieu.contains(1))
 		        	listOK = true;
+
+				 */
 	        }
 	        
 	        // Test pour voir si des routes se croisent

@@ -6,7 +6,7 @@ public abstract class Indice {
     TypeIndice typeIndice;
     String description;
     boolean negation;
-    boolean usefull;
+    boolean usefull=true;
 
     public abstract boolean check(Solution solution);
 

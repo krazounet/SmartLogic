@@ -32,14 +32,14 @@ public class Solution {
     
     public void createHashMaps()
     {
-        // Création des HashMaps des réservations
+        // Crï¿½ation des HashMaps des rï¿½servations
         for(Reservation reservation : solution)
         {
-            // Liste des réservations : "Res_PPMML" = "Yes"
+            // Liste des rï¿½servations : "Res_PPMML" = "Yes"
         	stats.put("Res_" + reservation.personne.name() + reservation.moment.name() + reservation.lieu.piece.name(), "Yes");
         }
         
-        // Création des HashMaps qui concernent deux réservations
+        // Crï¿½ation des HashMaps qui concernent deux rï¿½servations
         for(int r1 = 0; r1 < solution.size(); r1++)
         {
         	Reservation resa1 = solution.get(r1);
@@ -50,15 +50,15 @@ public class Solution {
             		continue;
             	if(resa1.moment == resa2.moment && resa1.lieu == resa2.lieu)
             	{
-                    // Deux personnes dans le même lieu connu à un moment inconnu : "Met_P1P2L" = "MM"
+                    // Deux personnes dans le mï¿½me lieu connu ï¿½ un moment inconnu : "Met_P1P2L" = "MM"
                 	stats.put("Met_" + resa1.personne.name() + resa2.personne.name() + resa1.lieu.piece.name(), resa1.moment.name());
-                    // Deux personnes dans le même lieu inconnu à un moment connu : "Met_P1P2MM" = "L"
+                    // Deux personnes dans le mï¿½me lieu inconnu ï¿½ un moment connu : "Met_P1P2MM" = "L"
                 	stats.put("Met_" + resa1.personne.name() + resa2.personne.name() + resa1.moment.name(), resa1.lieu.piece.name());
             	}
         	}
         }
         
-        // Création des HashMaps qui concernent un lieu connu et un moment connu
+        // Crï¿½ation des HashMaps qui concernent un lieu connu et un moment connu
         for(Moment present : ConfigPartie.list_moments_partie)
         {
         	for(Piece piece : ConfigPartie.list_pieces_partie)
@@ -67,12 +67,12 @@ public class Solution {
         		for(Reservation reservation : solution)
         			if(reservation.moment == present && reservation.lieu.piece == piece)
         				compteur++;
-        		// N personnes dans le même lieu connu à un moment connu : "Grp_MML" = "N"
+        		// N personnes dans le mï¿½me lieu connu ï¿½ un moment connu : "Grp_MML" = "N"
             	stats.put("Grp_" + present.name() + piece.name(), "" + compteur);
         	}
         }
         
-        // Création des HashMaps qui indiquent le nombre d'occurence des lieux
+        // Crï¿½ation des HashMaps qui indiquent le nombre d'occurence des lieux
     	for(Piece piece : ConfigPartie.list_pieces_partie)
     	{
     		int compteur = 0;
@@ -83,7 +83,7 @@ public class Solution {
         	stats.put("OcL_" + piece.name(), "" + compteur);
     	}
     	
-    	// Création des HashMaps qui indiquent le nombre de lieux différents à un moment donné
+    	// Crï¿½ation des HashMaps qui indiquent le nombre de lieux diffï¿½rents ï¿½ un moment donnï¿½
         for(Moment present : ConfigPartie.list_moments_partie)
         {
         	List<Piece> listDiffPieces = new ArrayList<Piece>();
@@ -95,11 +95,11 @@ public class Solution {
     					listDiffPieces.add(reservation.lieu.piece);
     			}
     		}
-    		// Nombre de lieu à un moment : "OcLM_MM" = "N"
+    		// Nombre de lieu ï¿½ un moment : "OcLM_MM" = "N"
         	stats.put("OcLM_" + present.name(), "" + listDiffPieces.size());
         }
 
-        // Création des HashMaps qui indiquent le nombre de lieux différents visités par un personnage donné
+        // Crï¿½ation des HashMaps qui indiquent le nombre de lieux diffï¿½rents visitï¿½s par un personnage donnï¿½
         for(Personne personne : ConfigPartie.list_personnes_partie)
         {
         	List<Piece> listDiffPieces = new ArrayList<Piece>();
@@ -111,11 +111,11 @@ public class Solution {
     					listDiffPieces.add(reservation.lieu.piece);
     			}
     		}
-    		// Nombre de lieu visité par une personne : "OcLP_PP" = "N"
+    		// Nombre de lieu visitï¿½ par une personne : "OcLP_PP" = "N"
         	stats.put("OcLP_" + personne.name(), "" + listDiffPieces.size());
         }
 
-        // Création des HashMaps qui indiquent le nombre de fois qu'une personne à visité un lieu donné
+        // Crï¿½ation des HashMaps qui indiquent le nombre de fois qu'une personne ï¿½ visitï¿½ un lieu donnï¿½
         for(Personne personne : ConfigPartie.list_personnes_partie)
         {
         	for(Piece piece : ConfigPartie.list_pieces_partie)
@@ -126,10 +126,12 @@ public class Solution {
         			if(reservation.personne == personne && reservation.lieu.piece == piece)
         				compteur++;
         		}
-        		// Nombre de fois qu'une personne donné à visité un lieu donné : "OcPinL_PPL" = "N"
+        		// Nombre de fois qu'une personne donnï¿½ ï¿½ visitï¿½ un lieu donnï¿½ : "OcPinL_PPL" = "N"
             	stats.put("OcPinL_" + personne.name() + piece.name(), "" + compteur);
         	}
         }
+
+
     }
     
     public static List<Solution> getAllValidSolutionFromListIndicesDepart(Plan plan, List<Indice_P_L_M> liste_indices_depart)

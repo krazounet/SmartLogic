@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Solveur
@@ -34,11 +35,13 @@ public class Solveur
 
 	public static void detectUselessIndices(Plan plan, List<Indice_P_L_M> liste_indices_depart, List<Indice> liste_indices_autres)
 	{
+
 		for(Indice indiceToCheck : liste_indices_autres)
 			indiceToCheck.usefull = true;
 		for(Indice indiceToCheck : liste_indices_depart)
 			indiceToCheck.usefull = true;
-		
+
+
 		boolean canOptimize;
 		do
 		{
