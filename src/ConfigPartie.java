@@ -11,7 +11,7 @@ public class ConfigPartie {
     public static int nombre_moment=4;
     public static int nombre_positions_depart=4;
     public static int nombre_indices=15;
-    public static boolean autorise_culdesac=true;//non implémenté
+    public static boolean autorise_culdesac=false;
     public static List<Piece> list_toutes_pieces = new ArrayList<>(Arrays.asList(Piece.values()));
     public static List<Moment> list_tous_moments = new ArrayList<>(Arrays.asList(Moment.values()));
     public static List<Personne> list_toutes_personnes = new ArrayList<>(Arrays.asList(Personne.values()));

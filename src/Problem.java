@@ -19,7 +19,7 @@ public class Problem {
         
         do
         {
-        plan =new Plan(false);
+        plan =new Plan();
         solution = new Solution(plan);
 
         //algo indice ici

@@ -23,7 +23,7 @@ public class Conexion {
         return list_a_retourner;
     }
 
-    public static List<Conexion> getList_conexions_retenues(boolean allowDeadEnd){
+    public static List<Conexion> getList_conexions_retenues(){
         List<Conexion> list_a_retourner =new ArrayList<>();
     	boolean listOK = false;
     	do
@@ -34,7 +34,9 @@ public class Conexion {
 	        for (int i=0;i<ConfigPartie.nombre_connexion;i++){
 	            list_a_retourner.add(list_temp_connexions_possibles.get(i));
 	        }
-	        if(allowDeadEnd)
+	        
+	        // Test des culs de sac
+	        if(ConfigPartie.autorise_culdesac)
 	        	listOK = true;
 	        else
 	        {
@@ -54,6 +56,7 @@ public class Conexion {
 		        	listOK = true;
 	        }
 	        
+	        // Test pour voir si des routes se croisent
 	        if(listOK)
 	        {
 		        for(int idCnx1 = 0; idCnx1 < list_a_retourner.size() - 1; idCnx1++)
