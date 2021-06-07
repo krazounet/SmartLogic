@@ -11,7 +11,15 @@ public class Problem {
     Solution solution;
 
     public Problem() {
-        plan =new Plan();
+        List<Indice> liste_indices_retenus =new ArrayList<>();
+    	List<Indice_P_L_M> liste_indices_retenus_depart = new ArrayList<Indice_P_L_M>();
+    	List<Indice> liste_indices_retenus_autres = new ArrayList<Indice>();
+
+        boolean monoSolution = false;
+        
+        do
+        {
+        plan =new Plan(false);
         solution = new Solution(plan);
 
         //algo indice ici
@@ -30,28 +38,48 @@ public class Problem {
 
         Collections.shuffle(liste_tous_les_indices);
 
-        List<Indice> liste_indices_retenus =new ArrayList<>();
+        liste_indices_retenus.clear();
+    	liste_indices_retenus_depart.clear();
+    	liste_indices_retenus_autres.clear();
 
-        boolean monoSolution = false;
-        
-        do
-        {
         	liste_indices_retenus.clear();
 
+        	liste_indices_retenus_depart.clear();
+
         	for (int index_indice = 0; index_indice<ConfigPartie.nombre_positions_depart;index_indice++){
-	            liste_indices_retenus.add(liste_indices_depart.get(index_indice));
+        		liste_indices_retenus_depart.add(liste_indices_depart.get(index_indice));
 	        }
+        	
+        	liste_indices_retenus.addAll(liste_indices_retenus_depart);
         
+        	liste_indices_retenus_autres.clear();
+
 	        for (int index_indice = 0; index_indice<ConfigPartie.nombre_indices;index_indice++){
-	            liste_indices_retenus.add(liste_tous_les_indices.get(index_indice));
-	            if(Solveur.getNbSolutions(solution, list_indices) == 1)
-	            {
-	            	monoSolution = true;
-	            	break;
-	            }
+	        	liste_indices_retenus_autres.add(liste_tous_les_indices.get(index_indice));
 	        }
+	        
+	        liste_indices_retenus.addAll(liste_indices_retenus_autres);
+	        
+	        // Debuggage pour voir si les indices sont tous ok dans la solution de base :
+			for(Indice indiceToTest : liste_indices_retenus)
+			{
+				if(!indiceToTest.check(solution))
+				{
+					indiceToTest.check(solution);
+					break;
+				}
+			}
+
+	        int nbSolutions = Solveur.getNbSolutions(plan, liste_indices_retenus_depart, liste_indices_retenus_autres);
+	        System.out.println("Nb solutions : " + nbSolutions);
+	        if(nbSolutions == 1)
+            {
+            	monoSolution = true;
+            	break;
+            }
         } while(!monoSolution);
 
+        Solveur.detectUselessIndices(plan, liste_indices_retenus_depart, liste_indices_retenus_autres);
         list_indices=       liste_indices_retenus;
 
     }
@@ -68,7 +96,7 @@ public class Problem {
         }
         return retour;
     }
-    public void export(){
+    public void export(String filename, boolean onlyUsefull){
 
         BufferedImage fond = DrawTools.getImage(SmartLogic.repertoire+"Image\\FondSmartLogic.png");
         //BufferedImage rosace = DrawTools.getImage(SmartLogic.repertoire+"export\\rosace.png");
@@ -77,7 +105,13 @@ public class Problem {
         int ybase=1050;
         for(int i=0;i<list_indices.size();i++){
             Indice ind = list_indices.get(i);
-            DrawTools.drawText(fond,ind.description,500,ybase+(i*30),"Arial", Color.BLACK,30,0);
+            if(list_indices.get(i).usefull)
+            	DrawTools.drawText(fond,"*" + ind.description + "*",500,ybase+(i*30),"Arial", Color.BLACK,30,0);
+            else
+            {
+            	if(!onlyUsefull)
+            		DrawTools.drawText(fond,ind.description,500,ybase+(i*30),"Arial", Color.BLACK,30,0);
+            }
             BufferedImage img_ind=ind.export();
             if (img_ind!=null){
                 DrawTools.drawImageTransformed(fond.getGraphics(),img_ind,1800,1200+(i*100),0,100);
@@ -87,7 +121,7 @@ public class Problem {
         BufferedImage tableau = DrawTools.getImage(SmartLogic.repertoire+"Image\\4m"+ConfigPartie.nombre_lieu+"L.png");
         DrawTools.drawImageTransformed(fond.getGraphics(),tableau,1800,850,0,100);
 
-        DrawTools.saveFile(fond,SmartLogic.repertoire+"export\\problem.png");
+        DrawTools.saveFile(fond,SmartLogic.repertoire+"export\\" + filename + ".png");
 
 
 

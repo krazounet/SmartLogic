@@ -6,6 +6,9 @@ public abstract class Indice {
     TypeIndice typeIndice;
     String description;
     boolean negation;
+    boolean usefull;
+
+    public abstract boolean check(Solution solution);
 
     @Override
     public String toString() {

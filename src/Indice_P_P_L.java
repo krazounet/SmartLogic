@@ -18,6 +18,12 @@ public final class Indice_P_P_L extends Indice{
         this.piece = piece;
     }
 
+    @Override
+    public boolean check(Solution solution)
+    {
+    	return(solution.stats.get("Met_" + this.list_personne.get(0).name() + this.list_personne.get(1).name() + this.piece.name()) != null);
+    }
+
     public static List<Indice_P_P_L> all_PPL(Solution solution){
         List<Indice_P_P_L> list_a_retourner =new ArrayList<>();
         for(Moment moment : ConfigPartie.list_moments_partie){
@@ -35,7 +41,7 @@ public final class Indice_P_P_L extends Indice{
                     for(Personne personne : list_p_temp){
                         desc=desc+personne+" ,";
                     }
-                    desc=desc+" sont ensemble dans la piece "+piece+".";
+                    desc=desc+" sont ensemble dans la piece "+piece;
                     list_a_retourner.add(new Indice_P_P_L(desc, false,list_p_temp,piece));
                 }
 

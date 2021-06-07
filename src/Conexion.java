@@ -23,14 +23,69 @@ public class Conexion {
         return list_a_retourner;
     }
 
-    public static List<Conexion> getList_conexions_retenues(){
-        List<Conexion> list_temp_connexions_possibles =new ArrayList<>(getList_conexions_possibles());
-        Collections.shuffle(list_temp_connexions_possibles);
+    public static List<Conexion> getList_conexions_retenues(boolean allowDeadEnd){
         List<Conexion> list_a_retourner =new ArrayList<>();
-        for (int i=0;i<ConfigPartie.nombre_connexion;i++){
-            list_a_retourner.add(list_temp_connexions_possibles.get(i));
-        }
-        return list_a_retourner;
+    	boolean listOK = false;
+    	do
+    	{
+	        List<Conexion> list_temp_connexions_possibles =new ArrayList<>(getList_conexions_possibles());
+	        Collections.shuffle(list_temp_connexions_possibles);
+	        list_a_retourner.clear();
+	        for (int i=0;i<ConfigPartie.nombre_connexion;i++){
+	            list_a_retourner.add(list_temp_connexions_possibles.get(i));
+	        }
+	        if(allowDeadEnd)
+	        	listOK = true;
+	        else
+	        {
+	        	List<Integer> nbOccurenceLieu = new ArrayList<Integer>();
+	        	for(int n = 0; n < ConfigPartie.list_pieces_partie.size(); n++)
+	        		nbOccurenceLieu.add(0);
+	        	
+	        	for(Conexion conexionToTest : list_a_retourner)
+	        	{
+	        		int idLieu1 = ConfigPartie.list_pieces_partie.indexOf(conexionToTest.Piece1);
+	        		int idLieu2 = ConfigPartie.list_pieces_partie.indexOf(conexionToTest.Piece2);
+	        		nbOccurenceLieu.set(idLieu1, nbOccurenceLieu.get(idLieu1) + 1);
+	        		nbOccurenceLieu.set(idLieu2, nbOccurenceLieu.get(idLieu2) + 1);
+	        	}
+	        	
+	        	if(!nbOccurenceLieu.contains(1))
+		        	listOK = true;
+	        }
+	        
+	        if(listOK)
+	        {
+		        for(int idCnx1 = 0; idCnx1 < list_a_retourner.size() - 1; idCnx1++)
+		        {
+		        	Conexion cnx1 = list_a_retourner.get(idCnx1);
+		        	for(int idCnx2 = idCnx1 + 1; idCnx2 < list_a_retourner.size(); idCnx2++)
+		        	{
+			        	Conexion cnx2 = list_a_retourner.get(idCnx2);
+	
+			        	List<Piece> listA = new ArrayList<Piece>();
+						List<Piece> listB = new ArrayList<Piece>();
+						boolean inListA = true;
+						for(Piece pieceToTest : ConfigPartie.list_pieces_partie)
+						{
+							if(pieceToTest == cnx1.Piece1 || pieceToTest == cnx1.Piece2)
+								inListA = !inListA;
+							if(inListA)
+								listA.add(pieceToTest);
+							else
+								listB.add(pieceToTest);
+						}
+						listA.remove(cnx1.Piece1);
+						listA.remove(cnx1.Piece2);
+						listB.remove(cnx1.Piece1);
+						listB.remove(cnx1.Piece2);
+						if(listA.contains(cnx2.Piece1) && listB.contains(cnx2.Piece2) || listB.contains(cnx2.Piece1) && listA.contains(cnx2.Piece2))
+							listOK = false;
+		        	}
+		        }
+	        }
+    	} while(!listOK);
+    	return list_a_retourner;
     }
 
 public boolean contains (Piece piece_a_tester){

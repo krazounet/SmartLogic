@@ -11,12 +11,12 @@ public class Plan {
     List<Lieu> list_lieu = new ArrayList<>();
     List<Conexion> list_conexions;
 
-    public Plan() {
+    public Plan(boolean allowDeadEnd) {
         //la taille du plan dépend de config.nombre_lieu
         //le nombre de connexion de ConfigPartie.nombre_connexion
         //ConfigPartie.nombre_connexion
         //ConfigPartie.list_pieces_partie
-        list_conexions = Conexion.getList_conexions_retenues();
+        list_conexions = Conexion.getList_conexions_retenues(allowDeadEnd);
 
         for (Piece piece : ConfigPartie.list_pieces_partie){
             List<Piece> list_pieces_connectes=new ArrayList<>();

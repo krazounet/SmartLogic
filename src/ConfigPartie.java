@@ -5,12 +5,12 @@ import Enum.*;
 
 
 public class ConfigPartie {
-    public static int nombre_lieu=5;
-    public static int nombre_connexion=6;
-    public static int nombre_perso=3;
+    public static int nombre_lieu=4;
+    public static int nombre_connexion=4;
+    public static int nombre_perso=4;
     public static int nombre_moment=4;
-    public static int nombre_positions_depart=5;
-    public static int nombre_indices=12;
+    public static int nombre_positions_depart=4;
+    public static int nombre_indices=15;
     public static boolean autorise_culdesac=true;//non implémenté
     public static List<Piece> list_toutes_pieces = new ArrayList<>(Arrays.asList(Piece.values()));
     public static List<Moment> list_tous_moments = new ArrayList<>(Arrays.asList(Moment.values()));

@@ -21,14 +21,10 @@ Moment moment;
 
     }
     
+    @Override
     public boolean check(Solution solution)
     {
-    	for (Reservation reservation : solution.solution)
-    	{
-    		if(reservation.personne == this.personne && reservation.lieu.piece == this.piece && reservation.moment == this.moment)
-    			return(true);
-        }
-    	return(false);
+    	return(solution.stats.get("Res_" + this.personne.name() + this.moment.name() + this.piece.name()) != null);
     }
 
     public static List<Indice_P_L_M> all_PLM(Solution solution){

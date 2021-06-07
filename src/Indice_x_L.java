@@ -18,6 +18,12 @@ Piece piece;
 
     }
 
+    @Override
+    public boolean check(Solution solution)
+    {
+    	return(solution.stats.get("OcL_" + this.piece.name()).equals("" + compteur));
+    }
+
     public static List<Indice_x_L> all_xL(Solution solution) {
         List<Indice_x_L> list_a_retourner = new ArrayList<>();
         for(Piece piece : ConfigPartie.list_pieces_partie){
@@ -25,7 +31,7 @@ Piece piece;
             for(Reservation reservation : solution.solution){
                 if (piece == reservation.lieu.piece)compt++;
             }
-            list_a_retourner.add(new Indice_x_L("La pièce "+piece+" est visitée "+compt+" fois.",piece,compt,false));
+            list_a_retourner.add(new Indice_x_L("La piece "+piece+" est visitee "+compt+" fois",piece,compt,false));
         }
         return list_a_retourner;
     }

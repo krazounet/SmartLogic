@@ -18,6 +18,12 @@ public final class Indice_x_P_L extends Indice {
         this.piece = piece;
     }
 
+    @Override
+    public boolean check(Solution solution)
+    {
+    	return(solution.stats.get("OcPinL_" + this.personne.name() + this.piece.name()).equals("" + combien));
+    }
+
     public static List<Indice_x_P_L> all_xPL(Solution solution) {
         List<Indice_x_P_L> list_a_retourner = new ArrayList<>();
         for (Personne personne : ConfigPartie.list_personnes_partie){
@@ -27,7 +33,7 @@ public final class Indice_x_P_L extends Indice {
                 for (Reservation reservation : solution.solution){
                  if ((reservation.lieu.piece == piece)&&(reservation.personne==personne)) compteur++;
                 }
-                list_a_retourner.add(new Indice_x_P_L(compteur,personne,piece,personne+" est "+compteur+ " fois dans la pièce "+piece,false));
+                list_a_retourner.add(new Indice_x_P_L(compteur,personne,piece,personne+" est "+compteur+ " fois dans la piece "+piece,false));
                 //ici on peut faire la négation
                 //
             }
