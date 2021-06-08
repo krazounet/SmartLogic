@@ -49,7 +49,7 @@ public class Conexion {
 					nbOccurenceLieu.put(conexionToTest.Piece1,nbOccurenceLieu.get(conexionToTest.Piece1)+1 );
 					nbOccurenceLieu.put(conexionToTest.Piece2,nbOccurenceLieu.get(conexionToTest.Piece2)+1 );
 				}
-				if(!nbOccurenceLieu.values().contains(1))listOK = true;
+				if(!nbOccurenceLieu.containsValue(1))listOK = true;
 
 	        }
 	        
@@ -63,8 +63,8 @@ public class Conexion {
 		        	{
 			        	Conexion cnx2 = list_a_retourner.get(idCnx2);
 	
-			        	List<Piece> listA = new ArrayList<Piece>();
-						List<Piece> listB = new ArrayList<Piece>();
+			        	List<Piece> listA = new ArrayList<>();
+						List<Piece> listB = new ArrayList<>();
 						boolean inListA = true;
 						for(Piece pieceToTest : ConfigPartie.list_pieces_partie)
 						{
