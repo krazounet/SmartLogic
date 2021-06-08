@@ -26,7 +26,7 @@ public class Conexion {
 
     public static List<Conexion> getList_conexions_retenues(){
         List<Conexion> list_a_retourner =new ArrayList<>();
-    	boolean listOK = false;
+    	boolean listOK;
     	do
     	{
 	        List<Conexion> list_temp_connexions_possibles =new ArrayList<>(getList_conexions_possibles());
@@ -36,22 +36,20 @@ public class Conexion {
 	            list_a_retourner.add(list_temp_connexions_possibles.get(i));
 	        }
 	        
-	        // Test des culs de sac
-	        if(ConfigPartie.culdesac)
-	        	listOK = true;
-	        else
-	        {
-				HashMap<Piece,Integer> nbOccurenceLieu = new HashMap<>();
-				for(Piece piece :ConfigPartie.list_pieces_partie)//
-					nbOccurenceLieu.put(piece,0);
-				for(Conexion conexionToTest : list_a_retourner)
-				{
-					nbOccurenceLieu.put(conexionToTest.Piece1,nbOccurenceLieu.get(conexionToTest.Piece1)+1 );
-					nbOccurenceLieu.put(conexionToTest.Piece2,nbOccurenceLieu.get(conexionToTest.Piece2)+1 );
-				}
-				if(!nbOccurenceLieu.containsValue(1))listOK = true;
+	        // gestion des culs de sac
+			HashMap<Piece,Integer> nbOccurenceLieu = new HashMap<>();
+			for(Piece piece :ConfigPartie.list_pieces_partie)//
+				nbOccurenceLieu.put(piece,0);
+			for(Conexion conexionToTest : list_a_retourner)
+			{
+				nbOccurenceLieu.put(conexionToTest.Piece1,nbOccurenceLieu.get(conexionToTest.Piece1)+1 );
+				nbOccurenceLieu.put(conexionToTest.Piece2,nbOccurenceLieu.get(conexionToTest.Piece2)+1 );
+			}
 
-	        }
+	        if((ConfigPartie.culdesac)&&(nbOccurenceLieu.containsValue(1))){listOK = true;}
+	        else listOK = (!ConfigPartie.culdesac) && (!nbOccurenceLieu.containsValue(1));
+
+
 	        
 	        // Test pour voir si des routes se croisent
 	        if(listOK)
