@@ -50,25 +50,7 @@ public class Conexion {
 					nbOccurenceLieu.put(conexionToTest.Piece2,nbOccurenceLieu.get(conexionToTest.Piece2)+1 );
 				}
 				if(!nbOccurenceLieu.values().contains(1))listOK = true;
-					// ; n < ConfigPartie.list_pieces_partie.size(); n++)
 
-				/*
-	        	List<Integer> nbOccurenceLieu = new ArrayList<Integer>();
-	        	for(int n = 0; n < ConfigPartie.list_pieces_partie.size(); n++)
-	        		nbOccurenceLieu.add(0);
-	        	
-	        	for(Conexion conexionToTest : list_a_retourner)
-	        	{
-	        		int idLieu1 = ConfigPartie.list_pieces_partie.indexOf(conexionToTest.Piece1);
-	        		int idLieu2 = ConfigPartie.list_pieces_partie.indexOf(conexionToTest.Piece2);
-	        		nbOccurenceLieu.set(idLieu1, nbOccurenceLieu.get(idLieu1) + 1);
-	        		nbOccurenceLieu.set(idLieu2, nbOccurenceLieu.get(idLieu2) + 1);
-	        	}
-	        	
-	        	if(!nbOccurenceLieu.contains(1))
-		        	listOK = true;
-
-				 */
 	        }
 	        
 	        // Test pour voir si des routes se croisent
