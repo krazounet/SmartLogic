@@ -105,7 +105,7 @@ public class Problem {
         int ybase=1050;
         for(int i=0;i<list_indices.size();i++){
             Indice ind = list_indices.get(i);
-            if(list_indices.get(i).usefull)
+            if(ind.usefull)
             	DrawTools.drawText(fond,"*" + ind.description + "*",500,ybase+(i*30),"Arial", Color.BLACK,30,0);
             else
             {
@@ -113,7 +113,7 @@ public class Problem {
             		DrawTools.drawText(fond,ind.description,500,ybase+(i*30),"Arial", Color.BLACK,30,0);
             }
             BufferedImage img_ind=ind.export();
-            if (img_ind!=null){
+            if (img_ind!=null && (ind.usefull || !onlyUsefull)){
                 DrawTools.drawImageTransformed(fond.getGraphics(),img_ind,1800,1200+(i*100),0,100);
             }
         }
