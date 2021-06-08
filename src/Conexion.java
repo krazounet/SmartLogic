@@ -37,7 +37,7 @@ public class Conexion {
 	        }
 	        
 	        // Test des culs de sac
-	        if(ConfigPartie.autorise_culdesac)
+	        if(ConfigPartie.culdesac)
 	        	listOK = true;
 	        else
 	        {

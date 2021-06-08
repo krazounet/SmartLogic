@@ -5,8 +5,8 @@ public final class SmartLogic {
 
     public static void main(String[] args) {
         Problem p = new Problem();
-        p.export("Problem", false);
-        p.export("ProblemExpert", true);
+        p.export(ConfigPartie.nom_export, false);
+        p.export("Expert "+ConfigPartie.nom_export, true);
         System.out.println(p);
     }
 
