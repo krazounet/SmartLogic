@@ -20,12 +20,14 @@ public class Problem {
         plan =new Plan();
 
 
-
         boolean monoSolution = false;
         boolean exportable = false;//passe a true si aucun indice ne s'affiche dans la meme case
 
+
         do
         {
+            monoSolution = false;
+            exportable = false;
             //algo indice ici
             while(!exportable){
             solution = new Solution(plan);
@@ -57,8 +59,8 @@ public class Problem {
 	        	liste_indices_retenus_autres.add(liste_tous_les_indices.get(index_indice));
 	        }
 	        liste_indices_retenus.addAll(liste_indices_retenus_autres);
-                list_indices=       liste_indices_retenus;
-                exportable=isListIndiceExportable();
+	        list_indices = liste_indices_retenus;
+            exportable = isListIndiceExportable();
 	        System.out.println("Indice integrable au tableau :"+isListIndiceExportable());
             }
 
@@ -70,7 +72,7 @@ public class Problem {
                 monoSolution = false;
                 System.out.println("Mono solution non trouvee");
             }
-        } while(!monoSolution && !exportable);
+        } while(!monoSolution);
 
         if (ConfigPartie.find_optimisation) {
             Solveur.detectUselessIndices(plan, liste_indices_retenus_depart, liste_indices_retenus_autres);
@@ -96,9 +98,7 @@ public class Problem {
     public void export(String filename, boolean onlyUsefull){
 
         BufferedImage fond = DrawTools.getImage(SmartLogic.repertoire+"Image\\FondSmartLogic.png");
-        //BufferedImage rosace = DrawTools.getImage(SmartLogic.repertoire+"export\\rosace.png");
         DrawTools.drawImageTransformed(fond.getGraphics(),plan.export(),500,500,0,100);
-        //BufferedImage tableau = DrawTools.getImage(SmartLogic.repertoire+"Image\\4m"+ConfigPartie.nombre_lieu+"L.png");
         BufferedImage tableau = this.createTableau();
         int ybase=1050;
         int y_hors_tableau=1300;//positionnnement de depart pour les infos qui ne rentre pas dans le tableau
@@ -137,7 +137,7 @@ public class Problem {
             String emplacement = ind.getEmplacement();
             if (ind.localisationIndice != LocalisationIndice.HORS_TABLEAU){
                 if (emplacements.contains(emplacement)){
-                    System.out.println("indice au meme endroit dans le tableau : "+emplacement);
+                   // System.out.println("indice au meme endroit dans le tableau : "+emplacement);
                     return false;
                 }
                 else{
@@ -158,7 +158,7 @@ public class Problem {
 
         //la première ligne est donc les moments
         int x_moment=150;
-        int y_moment=052;
+        int y_moment=055;
         for (Moment moment : ConfigPartie.list_moments_partie){
             BufferedImage img_moment = DrawTools.getImage(SmartLogic.repertoire+"Image\\"+moment+".png");
             DrawTools.drawImageCenter(graph_tableau,img_moment,x_moment,y_moment);

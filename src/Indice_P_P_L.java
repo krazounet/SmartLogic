@@ -57,18 +57,7 @@ public final class Indice_P_P_L extends Indice{
 
     @Override
     public BufferedImage export() {
-        /*
-        BufferedImage image_indice = new BufferedImage((list_personne.size()+1)*100,100,BufferedImage.TYPE_INT_ARGB);
-        BufferedImage image_piece = DrawTools.getImage("image\\"+piece+".png");
-        DrawTools.drawImageCenter(image_indice.getGraphics(),image_piece,50,50);
-        for (int index_pers=0;index_pers<list_personne.size();index_pers++){
-            BufferedImage image_pers = DrawTools.getImage("image\\"+list_personne.get(index_pers)+".png");
-            DrawTools.drawImageCenter(image_indice.getGraphics(),image_pers,150+(index_pers*100),50);
 
-        }
-        return image_indice;
-
-         */
         BufferedImage image_indice = new BufferedImage(100,100,BufferedImage.TYPE_INT_ARGB);
         int x_img=25;
         int y_img=25;

@@ -18,7 +18,7 @@ public class ConfigPartie {
     public static boolean culdesac=false;
 
     //config d'activation ou pas de certains alo
-    public static boolean find_optimisation=false;
+    public static boolean find_optimisation=true;
     public static boolean optimize_start_indices=false;
 
     public static List<Piece> list_toutes_pieces = new ArrayList<>(Arrays.asList(Piece.values()));
