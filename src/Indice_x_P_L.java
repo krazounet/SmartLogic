@@ -13,6 +13,8 @@ public final class Indice_x_P_L extends Indice {
         super.typeIndice = TypeIndice.x_P_L;
         super.description=desc;
         super.negation=negation;
+        super.localisationIndice=LocalisationIndice.LIGNE;
+
         this.combien = combien;
         this.personne = personne;
         this.piece = piece;

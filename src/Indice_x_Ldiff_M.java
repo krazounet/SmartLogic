@@ -12,6 +12,8 @@ public final class Indice_x_Ldiff_M extends Indice{
         super.typeIndice = TypeIndice.x_L_M;
         super.description=desc;
         super.negation=negation;
+        super.localisationIndice=LocalisationIndice.COLONNE;
+
         this.combien = combien;
         this.moment = moment;
 

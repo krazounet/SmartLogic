@@ -14,6 +14,7 @@ Moment moment;
         super.typeIndice = TypeIndice.P_L_M;
         super.description= desc;
         super.negation=negation;
+        super.localisationIndice=LocalisationIndice.CASE;
 
         this.piece=piece;
         personne=p;

@@ -11,8 +11,9 @@ public final class Indice_P_P_M extends Indice{
         super.typeIndice =TypeIndice.P_P_M;
         super.description=desc;
         super.negation=negation;
-        this.list_personne = lp;
+        super.localisationIndice = LocalisationIndice.COLONNE;
 
+        this.list_personne = lp;
         this.moment = moment;
     }
 

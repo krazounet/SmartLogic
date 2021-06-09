@@ -9,6 +9,7 @@ public final class Indice_x_Ldiff_P extends Indice{
         super.typeIndice = TypeIndice.x_L_M;
         super.description=desc;
         super.negation=negation;
+        super.localisationIndice=LocalisationIndice.HORS_TABLEAU;
 
         this.combien = combien;
         this.personne = personne;

@@ -7,6 +7,7 @@ public abstract class Indice {
     String description;
     boolean negation;
     boolean usefull=true;
+    LocalisationIndice localisationIndice;
 
     public abstract boolean check(Solution solution);
 

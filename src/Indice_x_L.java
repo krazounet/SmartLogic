@@ -12,6 +12,7 @@ Piece piece;
         super.typeIndice = TypeIndice.x_L;
         super.description= desc;
         super.negation=negation;
+        super.localisationIndice=LocalisationIndice.LIGNE;
 
         this.piece=piece;
         this.compteur=compteur;

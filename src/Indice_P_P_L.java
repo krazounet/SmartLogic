@@ -13,9 +13,11 @@ public final class Indice_P_P_L extends Indice{
         super.typeIndice =TypeIndice.P_P_L;
         super.description=desc;
         super.negation=negation;
-        this.list_personne = lp;
+        super.localisationIndice=LocalisationIndice.LIGNE;
 
+        this.list_personne = lp;
         this.piece = piece;
+
     }
 
     @Override

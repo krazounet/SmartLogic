@@ -6,14 +6,14 @@ import Enum.*;
 
 
 public class ConfigPartie {
-    public static int nombre_lieu=4;
-    public static int nombre_connexion=4;
+    public static int nombre_lieu=5;
+    public static int nombre_connexion=6;
     public static int nombre_perso=4;
     public static int nombre_moment=4;
     public static int nombre_positions_depart=4;
     public static int nombre_indices=15;
     public static boolean optimize_start_indices=false;
-    public static boolean culdesac=true;
+    public static boolean culdesac=false;
     public static List<Piece> list_toutes_pieces = new ArrayList<>(Arrays.asList(Piece.values()));
     public static List<Moment> list_tous_moments = new ArrayList<>(Arrays.asList(Moment.values()));
     public static List<Personne> list_toutes_personnes = new ArrayList<>(Arrays.asList(Personne.values()));
