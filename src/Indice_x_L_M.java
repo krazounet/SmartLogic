@@ -41,6 +41,9 @@ public final class Indice_x_L_M extends Indice {
         }
         return list_a_retourner;
     }
-
+    @Override
+    public String getEmplacement() {
+        return piece+""+moment;
+    }
 
 }

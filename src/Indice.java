@@ -23,4 +23,7 @@ public abstract class Indice {
     public BufferedImage export() {
         return null;
     }
+    public String getEmplacement() {
+        return null;
+    }
 }

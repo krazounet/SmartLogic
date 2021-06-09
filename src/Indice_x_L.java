@@ -36,5 +36,8 @@ Piece piece;
         }
         return list_a_retourner;
     }
-
+    @Override
+    public String getEmplacement() {
+        return ""+piece;
+    }
 }

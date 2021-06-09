@@ -60,4 +60,9 @@ Moment moment;
         DrawTools.drawImageTransformed(image_indice.getGraphics(),img_lieu,250,50,0,100);
         return image_indice;
     }
+
+    @Override
+    public String getEmplacement() {
+        return piece+""+moment;
+    }
 }

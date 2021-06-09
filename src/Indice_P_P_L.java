@@ -67,4 +67,9 @@ public final class Indice_P_P_L extends Indice{
         }
         return image_indice;
     }
+
+    @Override
+    public String getEmplacement() {
+        return ""+piece;
+    }
 }

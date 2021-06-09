@@ -3,6 +3,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import Enum.*;
 
 public class Problem {
 
@@ -56,15 +57,16 @@ public class Problem {
 	        int nbSolutions = Solveur.getNbSolutions(plan, liste_indices_retenus_depart, liste_indices_retenus_autres);
 	        if(nbSolutions == 1)   {
             	monoSolution = true;
-                System.out.println("Solution mono solution trouvee");
+                System.out.println("Mono solution trouvee");
             }else {
-                System.out.println("Solution mono solution non trouvee");
+                System.out.println("Mono solution non trouvee");
             }
         } while(!monoSolution);
 
         Solveur.detectUselessIndices(plan, liste_indices_retenus_depart, liste_indices_retenus_autres);
         list_indices=       liste_indices_retenus;
 
+        System.out.println("Indice integrable au tableau :"+isListIndiceExportable());
     }
 
     @Override
@@ -77,6 +79,7 @@ public class Problem {
         for (Indice ind : list_indices){
             retour=retour+ind.description+"\n";
         }
+
         return retour;
     }
     public void export(String filename, boolean onlyUsefull){
@@ -106,8 +109,24 @@ public class Problem {
 
         DrawTools.saveFile(fond,SmartLogic.repertoire+"export\\" + filename + ".png");
 
+    }
 
-
+    //regarde si dans la liste des indices du problem si on devrait écrire plusieurs indices au meme endroit du tableau
+    public boolean isListIndiceExportable (){
+        List<String> emplacements=new ArrayList<>();
+        for (Indice ind : list_indices){
+            String emplacement = ind.getEmplacement();
+            if (ind.localisationIndice != LocalisationIndice.HORS_TABLEAU){
+                if (emplacements.contains(emplacement)){
+                    System.out.println("indice au meme endroit dans le tableau : "+emplacement);
+                    return false;
+                }
+            }
+            else{
+                emplacements.add(emplacement);
+            }
+        }
+        return true;
     }
 
 }

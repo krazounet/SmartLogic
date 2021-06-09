@@ -40,6 +40,9 @@ public final class Indice_x_Ldiff_P extends Indice{
         }
         return list_a_retourner;
     }
-
+    @Override
+    public String getEmplacement() {
+        return null;
+    }
 
 }
