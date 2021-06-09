@@ -18,24 +18,26 @@ public class Problem {
 
 
         plan =new Plan();
-        solution = new Solution(plan);
 
-        //algo indice ici
 
-        List<Indice_P_L_M> liste_indices_depart = new ArrayList<>(Indice_P_L_M.all_PLM(solution));
-        List<Indice> liste_tous_les_indices =new ArrayList<>();
-        liste_tous_les_indices.addAll(Indice_x_P_L.all_xPL(solution));
-        liste_tous_les_indices.addAll(Indice_x_L_M.all_xPL(solution));
-        liste_tous_les_indices.addAll(Indice_x_L.all_xL(solution));
-        liste_tous_les_indices.addAll(Indice_x_Ldiff_M.all_xLdiffM(solution));
-        liste_tous_les_indices.addAll(Indice_x_Ldiff_P.all_xLdiffP(solution));
-        liste_tous_les_indices.addAll(Indice_P_P_M.all_PPM(solution));
-        liste_tous_les_indices.addAll(Indice_P_P_L.all_PPL(solution));
 
         boolean monoSolution = false;
 
         do
         {
+            //algo indice ici
+            solution = new Solution(plan);
+
+            List<Indice_P_L_M> liste_indices_depart = new ArrayList<>(Indice_P_L_M.all_PLM(solution));
+            List<Indice> liste_tous_les_indices =new ArrayList<>();
+            liste_tous_les_indices.addAll(Indice_x_P_L.all_xPL(solution));
+            liste_tous_les_indices.addAll(Indice_x_L_M.all_xPL(solution));
+            liste_tous_les_indices.addAll(Indice_x_L.all_xL(solution));
+            liste_tous_les_indices.addAll(Indice_x_Ldiff_M.all_xLdiffM(solution));
+            liste_tous_les_indices.addAll(Indice_x_Ldiff_P.all_xLdiffP(solution));
+            liste_tous_les_indices.addAll(Indice_P_P_M.all_PPM(solution));
+            liste_tous_les_indices.addAll(Indice_P_P_L.all_PPL(solution));
+
             //Melange des indices de references
             Collections.shuffle(liste_indices_depart);
             Collections.shuffle(liste_tous_les_indices);
@@ -87,7 +89,8 @@ public class Problem {
         BufferedImage fond = DrawTools.getImage(SmartLogic.repertoire+"Image\\FondSmartLogic.png");
         //BufferedImage rosace = DrawTools.getImage(SmartLogic.repertoire+"export\\rosace.png");
         DrawTools.drawImageTransformed(fond.getGraphics(),plan.export(),500,500,0,100);
-
+        //BufferedImage tableau = DrawTools.getImage(SmartLogic.repertoire+"Image\\4m"+ConfigPartie.nombre_lieu+"L.png");
+        BufferedImage tableau = this.createTableau();
         int ybase=1050;
         for(int i=0;i<list_indices.size();i++){
             Indice ind = list_indices.get(i);
@@ -100,12 +103,11 @@ public class Problem {
             }
             BufferedImage img_ind=ind.export();
             if (img_ind!=null && (ind.usefull || !onlyUsefull)){
-                DrawTools.drawImageTransformed(fond.getGraphics(),img_ind,1800,1200+(i*100),0,100);
+                DrawTools.drawImageTransformed(tableau.getGraphics(),img_ind,ind.getCoordonnee().x,ind.getCoordonnee().y,0,100);
             }
         }
 
-        //BufferedImage tableau = DrawTools.getImage(SmartLogic.repertoire+"Image\\4m"+ConfigPartie.nombre_lieu+"L.png");
-        BufferedImage tableau = this.createTableau();
+
         DrawTools.drawImageTransformed(fond.getGraphics(),tableau,1800,850,0,100);
 
         DrawTools.saveFile(fond,SmartLogic.repertoire+"export\\" + filename + ".png");
@@ -139,7 +141,7 @@ public class Problem {
 
         //la première ligne est donc les moments
         int x_moment=150;
-        int y_moment=050;
+        int y_moment=052;
         for (Moment moment : ConfigPartie.list_moments_partie){
             BufferedImage img_moment = DrawTools.getImage(SmartLogic.repertoire+"Image\\"+moment+".png");
             DrawTools.drawImageCenter(graph_tableau,img_moment,x_moment,y_moment);
@@ -161,7 +163,7 @@ public class Problem {
         //derniere ligne
         int x_ligne=150;
         int y_ligne=((ConfigPartie.list_pieces_partie.size()+1)*100)+50;
-        for (int num_moment=0 ; num_moment<=ConfigPartie.list_moments_partie.size() ; num_moment++){
+        for (int num_moment=0 ; num_moment<ConfigPartie.list_moments_partie.size() ; num_moment++){
             DrawTools.drawImageCenter(graph_tableau,img_carre,x_ligne,y_ligne);
             x_ligne=x_ligne+100;
         }

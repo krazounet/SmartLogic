@@ -57,6 +57,7 @@ public final class Indice_P_P_L extends Indice{
 
     @Override
     public BufferedImage export() {
+        /*
         BufferedImage image_indice = new BufferedImage((list_personne.size()+1)*100,100,BufferedImage.TYPE_INT_ARGB);
         BufferedImage image_piece = DrawTools.getImage("image\\"+piece+".png");
         DrawTools.drawImageCenter(image_indice.getGraphics(),image_piece,50,50);
@@ -66,10 +67,38 @@ public final class Indice_P_P_L extends Indice{
 
         }
         return image_indice;
+
+         */
+        BufferedImage image_indice = new BufferedImage(100,100,BufferedImage.TYPE_INT_ARGB);
+        int x_img=25;
+        int y_img=25;
+        for (int index_pers=0;index_pers<list_personne.size();index_pers++){
+            BufferedImage image_pers = DrawTools.getImage("image\\"+list_personne.get(index_pers)+".png");
+            DrawTools.drawImageTransformed(image_indice.getGraphics(),image_pers,x_img,y_img,0,50);
+            if (index_pers == 0) {x_img=x_img+50;}
+            if (index_pers == 1) {x_img=25;y_img=75;}
+            if (index_pers == 2) {x_img=x_img+50;}
+            ////BUG si 5 PERSONNES ///
+        }
+        BufferedImage image_lien = DrawTools.getImage("image\\lien.png");
+        if (list_personne.size()<3){
+            DrawTools.drawImageTransformed(image_indice.getGraphics(),image_lien,50,75,0,50);
+        }else{
+            DrawTools.drawImageTransformed(image_indice.getGraphics(),image_lien,50,50,0,50);
+        }
+
+        return image_indice;
     }
 
     @Override
     public String getEmplacement() {
         return ""+piece;
+    }
+
+    @Override
+    public Coordonnee getCoordonnee() {
+        int x=50 + (ConfigPartie.list_moments_partie.size()+1)*100;
+        int y=50 + (piece.ordinal()+1)*100;
+        return new Coordonnee(x,y);
     }
 }

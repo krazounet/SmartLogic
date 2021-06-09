@@ -1,4 +1,6 @@
 import Enum.*;
+
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +27,11 @@ public final class Indice_x_Ldiff_M extends Indice{
     	return(solution.stats.get("OcLM_" + this.moment.name()).equals("" + combien));
     }
 
+    @Override
+    public BufferedImage export() {
+        return null;
+    }
+
     public static List<Indice_x_Ldiff_M> all_xLdiffM(Solution solution) {
         List<Indice_x_Ldiff_M> list_a_retourner = new ArrayList<>();
         for (Moment moment : ConfigPartie.list_moments_partie){
@@ -46,5 +53,12 @@ public final class Indice_x_Ldiff_M extends Indice{
     @Override
     public String getEmplacement() {
         return ""+moment;
+    }
+
+    @Override
+    public Coordonnee getCoordonnee() {
+        int x=50 + (moment.ordinal()+1)*100;
+        int y=50 + (ConfigPartie.list_pieces_partie.size()+1)*100;
+        return new Coordonnee(x,y);
     }
 }

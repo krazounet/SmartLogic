@@ -1,4 +1,6 @@
 import Enum.*;
+
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 //nombre de lieu différent pour un Perso
@@ -22,6 +24,11 @@ public final class Indice_x_Ldiff_P extends Indice{
     	return(solution.stats.get("OcLP_" + this.personne.name()).equals("" + combien));
     }
 
+    @Override
+    public BufferedImage export() {
+        return null;
+    }
+
     public static List<Indice_x_Ldiff_P> all_xLdiffP(Solution solution) {
         List<Indice_x_Ldiff_P> list_a_retourner = new ArrayList<>();
         for (Personne personne : ConfigPartie.list_personnes_partie){
@@ -42,6 +49,11 @@ public final class Indice_x_Ldiff_P extends Indice{
     }
     @Override
     public String getEmplacement() {
+        return null;
+    }
+
+    @Override
+    public Coordonnee getCoordonnee() {
         return null;
     }
 

@@ -20,10 +20,8 @@ public abstract class Indice {
                 '}';
     }
 
-    public BufferedImage export() {
-        return null;
-    }
-    public String getEmplacement() {
-        return null;
-    }
+    public abstract BufferedImage export() ;
+    public abstract String getEmplacement();
+    public abstract Coordonnee getCoordonnee() ;
+
 }

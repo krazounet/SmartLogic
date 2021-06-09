@@ -1,4 +1,7 @@
 import Enum.*;
+
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +28,16 @@ Piece piece;
     	return(solution.stats.get("OcL_" + this.piece.name()).equals("" + compteur));
     }
 
+    @Override
+    public BufferedImage export() {
+        BufferedImage image_indice = new BufferedImage(100,100,BufferedImage.TYPE_INT_ARGB);
+        BufferedImage image_px = DrawTools.getImage("image\\PersoX.png");
+        DrawTools.drawImageTransformed(image_indice.getGraphics(),image_px,75,50,0,50);
+        DrawTools.drawText(image_indice,""+compteur,25,50, "Arial", Color.BLACK,40,0);
+        return image_indice;
+
+    }
+
     public static List<Indice_x_L> all_xL(Solution solution) {
         List<Indice_x_L> list_a_retourner = new ArrayList<>();
         for(Piece piece : ConfigPartie.list_pieces_partie){
@@ -39,5 +52,13 @@ Piece piece;
     @Override
     public String getEmplacement() {
         return ""+piece;
+    }
+
+    @Override
+    public Coordonnee getCoordonnee() {
+        int x=50 + (ConfigPartie.list_moments_partie.size()+1)*100;
+        int y=50 + (piece.ordinal()+1)*100;
+        return new Coordonnee(x,y);
+
     }
 }

@@ -51,6 +51,7 @@ Moment moment;
 
     @Override
     public BufferedImage export() {
+        /*
         BufferedImage image_indice = new BufferedImage(300,100,BufferedImage.TYPE_INT_ARGB);
         BufferedImage img_personne = DrawTools.getImage(SmartLogic.repertoire+"image\\"+personne+".png");
         BufferedImage img_moment = DrawTools.getImage(SmartLogic.repertoire+"image\\"+moment+".png");
@@ -58,11 +59,21 @@ Moment moment;
         DrawTools.drawImageTransformed(image_indice.getGraphics(),img_personne,50,50,0,100);
         DrawTools.drawImageTransformed(image_indice.getGraphics(),img_moment,150,50,0,100);
         DrawTools.drawImageTransformed(image_indice.getGraphics(),img_lieu,250,50,0,100);
-        return image_indice;
+
+         */
+        return DrawTools.getImage(SmartLogic.repertoire+"image\\"+personne+".png");
     }
 
     @Override
     public String getEmplacement() {
         return piece+""+moment;
     }
+
+    @Override
+    public Coordonnee getCoordonnee() {
+        int x=50 + (moment.ordinal()+1)*100;
+        int y=50 + (piece.ordinal()+1)*100;
+        return new Coordonnee(x,y);
+    }
+
 }

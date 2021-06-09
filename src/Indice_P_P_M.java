@@ -1,4 +1,6 @@
 import Enum.*;
+
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +23,28 @@ public final class Indice_P_P_M extends Indice{
     public boolean check(Solution solution)
     {
     	return(solution.stats.get("Met_" + this.list_personne.get(0).name() + this.list_personne.get(1).name() + this.moment.name()) != null);
+    }
+
+    @Override
+    public BufferedImage export() {
+        BufferedImage image_indice = new BufferedImage(100,100,BufferedImage.TYPE_INT_ARGB);
+        int x_img=25;
+        int y_img=25;
+        for (int index_pers=0;index_pers<list_personne.size();index_pers++){
+            BufferedImage image_pers = DrawTools.getImage("image\\"+list_personne.get(index_pers)+".png");
+            DrawTools.drawImageTransformed(image_indice.getGraphics(),image_pers,x_img,y_img,0,50);
+            if (index_pers == 0) {x_img=x_img+50;}
+            if (index_pers == 1) {x_img=25;y_img=75;}
+            if (index_pers == 2) {x_img=x_img+50;}
+            ////BUG si 5 PERSONNES ///
+        }
+        BufferedImage image_lien = DrawTools.getImage("image\\lien.png");
+        if (list_personne.size()<3){
+            DrawTools.drawImageTransformed(image_indice.getGraphics(),image_lien,50,75,0,50);
+        }else{
+            DrawTools.drawImageTransformed(image_indice.getGraphics(),image_lien,50,50,0,50);
+        }
+        return image_indice;
     }
 
     public static List<Indice_P_P_M> all_PPM(Solution solution){
@@ -55,5 +79,12 @@ public final class Indice_P_P_M extends Indice{
     @Override
     public String getEmplacement() {
         return ""+moment;
+    }
+
+    @Override
+    public Coordonnee getCoordonnee() {
+        int x=50 + (moment.ordinal()+1)*100;
+        int y=50 + (ConfigPartie.list_pieces_partie.size()+1)*100;
+        return new Coordonnee(x,y);
     }
 }
