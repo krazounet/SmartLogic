@@ -1,5 +1,6 @@
 import Enum.*;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +29,11 @@ public final class Indice_x_L_M extends Indice {
 
     @Override
     public BufferedImage export() {
-        return null;
+        BufferedImage image_indice = new BufferedImage(100,100,BufferedImage.TYPE_INT_ARGB);
+        BufferedImage image_px = DrawTools.getImage("image\\PersoX.png");
+        DrawTools.drawImageTransformed(image_indice.getGraphics(),image_px,75,50,0,50);
+        DrawTools.drawText(image_indice,""+combien,25,50, "Arial", Color.BLACK,40,0);
+        return image_indice;
     }
 
     public static List<Indice_x_L_M> all_xPL(Solution solution) {

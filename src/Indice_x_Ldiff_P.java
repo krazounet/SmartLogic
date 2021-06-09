@@ -1,5 +1,6 @@
 import Enum.*;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +27,14 @@ public final class Indice_x_Ldiff_P extends Indice{
 
     @Override
     public BufferedImage export() {
-        return null;
+        BufferedImage image_indice = new BufferedImage(150,50,BufferedImage.TYPE_INT_ARGB);
+        BufferedImage image_px = DrawTools.getImage("image\\"+personne+".png");
+        DrawTools.drawImageTransformed(image_indice.getGraphics(),image_px,25,25,0,50);
+        DrawTools.drawText(image_indice,""+combien,75,25, "Arial", Color.BLACK,40,0);
+        BufferedImage image_lx = DrawTools.getImage("image\\LieuX.png");
+        DrawTools.drawImageTransformed(image_indice.getGraphics(),image_lx,125,25,0,50);
+
+        return image_indice;
     }
 
     public static List<Indice_x_Ldiff_P> all_xLdiffP(Solution solution) {

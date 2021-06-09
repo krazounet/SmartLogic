@@ -22,10 +22,12 @@ public class Problem {
 
 
         boolean monoSolution = false;
+        boolean exportable = false;//passe a true si aucun indice ne s'affiche dans la meme case
 
         do
         {
             //algo indice ici
+            while(!exportable){
             solution = new Solution(plan);
 
             List<Indice_P_L_M> liste_indices_depart = new ArrayList<>(Indice_P_L_M.all_PLM(solution));
@@ -55,20 +57,27 @@ public class Problem {
 	        	liste_indices_retenus_autres.add(liste_tous_les_indices.get(index_indice));
 	        }
 	        liste_indices_retenus.addAll(liste_indices_retenus_autres);
+                list_indices=       liste_indices_retenus;
+                exportable=isListIndiceExportable();
+	        System.out.println("Indice integrable au tableau :"+isListIndiceExportable());
+            }
 
 	        int nbSolutions = Solveur.getNbSolutions(plan, liste_indices_retenus_depart, liste_indices_retenus_autres);
 	        if(nbSolutions == 1)   {
             	monoSolution = true;
                 System.out.println("Mono solution trouvee");
             }else {
+                monoSolution = false;
                 System.out.println("Mono solution non trouvee");
             }
-        } while(!monoSolution);
+        } while(!monoSolution && !exportable);
 
-        Solveur.detectUselessIndices(plan, liste_indices_retenus_depart, liste_indices_retenus_autres);
-        list_indices=       liste_indices_retenus;
+        if (ConfigPartie.find_optimisation) {
+            Solveur.detectUselessIndices(plan, liste_indices_retenus_depart, liste_indices_retenus_autres);
+        }
 
-        System.out.println("Indice integrable au tableau :"+isListIndiceExportable());
+
+
     }
 
     @Override
@@ -92,8 +101,10 @@ public class Problem {
         //BufferedImage tableau = DrawTools.getImage(SmartLogic.repertoire+"Image\\4m"+ConfigPartie.nombre_lieu+"L.png");
         BufferedImage tableau = this.createTableau();
         int ybase=1050;
+        int y_hors_tableau=1300;//positionnnement de depart pour les infos qui ne rentre pas dans le tableau
         for(int i=0;i<list_indices.size();i++){
             Indice ind = list_indices.get(i);
+            BufferedImage img_ind=ind.export();
             if(ind.usefull)
             	DrawTools.drawText(fond,"*" + ind.description + "*",500,ybase+(i*30),"Arial", Color.BLACK,30,0);
             else
@@ -101,9 +112,14 @@ public class Problem {
             	if(!onlyUsefull)
             		DrawTools.drawText(fond,ind.description,500,ybase+(i*30),"Arial", Color.BLACK,30,0);
             }
-            BufferedImage img_ind=ind.export();
-            if (img_ind!=null && (ind.usefull || !onlyUsefull)){
-                DrawTools.drawImageTransformed(tableau.getGraphics(),img_ind,ind.getCoordonnee().x,ind.getCoordonnee().y,0,100);
+
+            if ((ind.localisationIndice == LocalisationIndice.HORS_TABLEAU)&&((ind.usefull || !onlyUsefull))){
+                DrawTools.drawImageTransformed(fond.getGraphics(),img_ind,1800,y_hors_tableau,0,100);
+                y_hors_tableau=y_hors_tableau+50;
+            }else{
+                if  (ind.usefull || !onlyUsefull){
+                    DrawTools.drawImageTransformed(tableau.getGraphics(),img_ind,ind.getCoordonnee().x,ind.getCoordonnee().y,0,100);
+                }
             }
         }
 
@@ -124,10 +140,11 @@ public class Problem {
                     System.out.println("indice au meme endroit dans le tableau : "+emplacement);
                     return false;
                 }
+                else{
+                    emplacements.add(emplacement);
+                }
             }
-            else{
-                emplacements.add(emplacement);
-            }
+
         }
         return true;
     }
