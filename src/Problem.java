@@ -118,7 +118,7 @@ public class Problem {
                 y_hors_tableau=y_hors_tableau+50;
             }else{
                 if  (ind.usefull || !onlyUsefull){
-                    DrawTools.drawImageTransformed(tableau.getGraphics(),img_ind,ind.getCoordonnee().x,ind.getCoordonnee().y,0,100);
+                    DrawTools.drawImageTransformed(tableau.getGraphics(),img_ind,ind.getCoordonnee().x + 100,ind.getCoordonnee().y,0,100);
                 }
             }
         }
@@ -152,12 +152,31 @@ public class Problem {
     public BufferedImage createTableau (){
         //image carre
         BufferedImage img_carre = DrawTools.getImage(SmartLogic.repertoire+"Image\\carre.png");
+        BufferedImage img_carre_bord = DrawTools.getImage(SmartLogic.repertoire+"Image\\carre_bord.png");
         //chaque element du tableau fait 100*100 en pixel.
-        BufferedImage image_tableau = new BufferedImage((ConfigPartie.nombre_moment+2)*100,(ConfigPartie.nombre_lieu+2)*100,BufferedImage.TYPE_INT_ARGB);
+        BufferedImage image_tableau = new BufferedImage((ConfigPartie.nombre_moment+2)*100 + 100,(ConfigPartie.nombre_lieu+2)*100,BufferedImage.TYPE_INT_ARGB);
         Graphics graph_tableau= image_tableau.getGraphics();
+        
+        Graphics2D g2 = (Graphics2D) graph_tableau;
+        g2.setColor(Color.BLACK);
+		g2.setStroke(new BasicStroke(7));
+        for(Conexion conexionToDraw : plan.list_conexions)
+        {
+        	int startY1 = ConfigPartie.list_pieces_partie.indexOf(conexionToDraw.Piece1);
+        	int startY2 = ConfigPartie.list_pieces_partie.indexOf(conexionToDraw.Piece2);
+        	if(startY1 > startY2)
+        	{
+        		int temp = startY1;
+        		startY1 = startY2;
+        		startY2 = temp;
+        	}
+        	int gap = startY2 - startY1;
+
+        	g2.drawArc((120 - (gap * 10)) - (10 * gap),  150 + startY1 * 100, (120 - (gap * 10)) + (10 * gap), gap * 100, 90, 180);
+        }
 
         //la première ligne est donc les moments
-        int x_moment=150;
+        int x_moment=250;
         int y_moment=055;
         for (Moment moment : ConfigPartie.list_moments_partie){
             BufferedImage img_moment = DrawTools.getImage(SmartLogic.repertoire+"Image\\"+moment+".png");
@@ -167,23 +186,27 @@ public class Problem {
         //les lignes suivantes sont donc pour les lieus.
         int y_lieu = 150;
         for (Piece piece : ConfigPartie.list_pieces_partie){
-            int x_lieu = 50;
+            int x_lieu = 150;
 
             BufferedImage img_piece = DrawTools.getImage(SmartLogic.repertoire+"Image\\"+piece+".png");
             DrawTools.drawImageCenter(graph_tableau,img_piece,x_lieu,y_lieu);
             for (int num_moment=0 ; num_moment<=ConfigPartie.list_moments_partie.size() ; num_moment++){
                 x_lieu=x_lieu+100;
-                DrawTools.drawImageCenter(graph_tableau,img_carre,x_lieu,y_lieu);
+                if(num_moment != ConfigPartie.list_moments_partie.size())
+                	DrawTools.drawImageCenter(graph_tableau,img_carre,x_lieu,y_lieu);
+                else
+                	DrawTools.drawImageTransformed(graph_tableau, img_carre_bord, x_lieu, y_lieu, 270, 100);
             }
             y_lieu = y_lieu+100 ;//l increment de y_lieu pour la ligne suivante.
         }
         //derniere ligne
-        int x_ligne=150;
+        int x_ligne=250;
         int y_ligne=((ConfigPartie.list_pieces_partie.size()+1)*100)+50;
         for (int num_moment=0 ; num_moment<ConfigPartie.list_moments_partie.size() ; num_moment++){
-            DrawTools.drawImageCenter(graph_tableau,img_carre,x_ligne,y_ligne);
+        	DrawTools.drawImageTransformed(graph_tableau, img_carre_bord, x_ligne, y_ligne, 0, 100);
             x_ligne=x_ligne+100;
         }
+
         return image_tableau;
     }
 

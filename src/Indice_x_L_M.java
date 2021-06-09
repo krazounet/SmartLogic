@@ -30,9 +30,17 @@ public final class Indice_x_L_M extends Indice {
     @Override
     public BufferedImage export() {
         BufferedImage image_indice = new BufferedImage(100,100,BufferedImage.TYPE_INT_ARGB);
-        BufferedImage image_px = DrawTools.getImage("image\\PersoX.png");
-        DrawTools.drawImageTransformed(image_indice.getGraphics(),image_px,70,50,0,50);
-        DrawTools.drawText(image_indice,""+combien,25,50, "Arial", Color.BLACK,40,0);
+        if(combien == 0)
+        {
+            BufferedImage image_px = DrawTools.getImage("image\\nobody.png");
+            DrawTools.drawImageTransformed(image_indice.getGraphics(),image_px,50,50,0,100);
+        }
+        else
+        {
+            BufferedImage image_px = DrawTools.getImage("image\\PersoX.png");
+            DrawTools.drawImageTransformed(image_indice.getGraphics(),image_px,70,50,0,50);
+            DrawTools.drawText(image_indice,""+combien,25,50, "Arial", Color.BLACK,40,0);
+        }
         return image_indice;
     }
 
