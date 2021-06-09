@@ -1,8 +1,10 @@
+import Enum.Moment;
+import Enum.Personne;
+import Enum.Piece;
+
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
-import Enum.*;
 
 
 public class ConfigPartie {

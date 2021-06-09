@@ -104,7 +104,8 @@ public class Problem {
             }
         }
 
-        BufferedImage tableau = DrawTools.getImage(SmartLogic.repertoire+"Image\\4m"+ConfigPartie.nombre_lieu+"L.png");
+        //BufferedImage tableau = DrawTools.getImage(SmartLogic.repertoire+"Image\\4m"+ConfigPartie.nombre_lieu+"L.png");
+        BufferedImage tableau = this.createTableau();
         DrawTools.drawImageTransformed(fond.getGraphics(),tableau,1800,850,0,100);
 
         DrawTools.saveFile(fond,SmartLogic.repertoire+"export\\" + filename + ".png");
@@ -127,6 +128,44 @@ public class Problem {
             }
         }
         return true;
+    }
+
+    public BufferedImage createTableau (){
+        //image carre
+        BufferedImage img_carre = DrawTools.getImage(SmartLogic.repertoire+"Image\\carre.png");
+        //chaque element du tableau fait 100*100 en pixel.
+        BufferedImage image_tableau = new BufferedImage((ConfigPartie.nombre_moment+2)*100,(ConfigPartie.nombre_lieu+2)*100,BufferedImage.TYPE_INT_ARGB);
+        Graphics graph_tableau= image_tableau.getGraphics();
+
+        //la première ligne est donc les moments
+        int x_moment=150;
+        int y_moment=050;
+        for (Moment moment : ConfigPartie.list_moments_partie){
+            BufferedImage img_moment = DrawTools.getImage(SmartLogic.repertoire+"Image\\"+moment+".png");
+            DrawTools.drawImageCenter(graph_tableau,img_moment,x_moment,y_moment);
+            x_moment=x_moment+100;
+        }
+        //les lignes suivantes sont donc pour les lieus.
+        int y_lieu = 150;
+        for (Piece piece : ConfigPartie.list_pieces_partie){
+            int x_lieu = 50;
+
+            BufferedImage img_piece = DrawTools.getImage(SmartLogic.repertoire+"Image\\"+piece+".png");
+            DrawTools.drawImageCenter(graph_tableau,img_piece,x_lieu,y_lieu);
+            for (int num_moment=0 ; num_moment<=ConfigPartie.list_moments_partie.size() ; num_moment++){
+                x_lieu=x_lieu+100;
+                DrawTools.drawImageCenter(graph_tableau,img_carre,x_lieu,y_lieu);
+            }
+            y_lieu = y_lieu+100 ;//l increment de y_lieu pour la ligne suivante.
+        }
+        //derniere ligne
+        int x_ligne=150;
+        int y_ligne=((ConfigPartie.list_pieces_partie.size()+1)*100)+50;
+        for (int num_moment=0 ; num_moment<=ConfigPartie.list_moments_partie.size() ; num_moment++){
+            DrawTools.drawImageCenter(graph_tableau,img_carre,x_ligne,y_ligne);
+            x_ligne=x_ligne+100;
+        }
+        return image_tableau;
     }
 
 }
