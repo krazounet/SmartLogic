@@ -21,8 +21,8 @@ public class Problem {
         plan =new Plan();
 
 
-        boolean monoSolution = false;
-        boolean exportable = false;//passe a true si aucun indice ne s'affiche dans la meme case
+        boolean monoSolution ;
+        boolean exportable ;//passe a true si aucun indice ne s'affiche dans la meme case
 
 
         do
@@ -107,7 +107,7 @@ public class Problem {
         	for(int p = 0; p < ConfigPartie.list_pieces_partie.size(); p++)
         	{
         		Piece cettePiece = ConfigPartie.list_pieces_partie.get(p);
-        		List<Personne> listPersonnesHere = new ArrayList<Personne>();
+        		List<Personne> listPersonnesHere = new ArrayList<>();
         		
         		for(Reservation reservationToTest : solution.solution)
         		{
@@ -176,7 +176,6 @@ public class Problem {
             BufferedImage image_pers = DrawTools.getImage(SmartLogic.repertoire+"Image\\"+ConfigPartie.list_personnes_partie.get(idx_pers)+".png");
             DrawTools.drawImageTransformed(fond.getGraphics(),image_pers,100+(idx_pers*100),100,0,100);
         }
-
         //caractéristiques
         DrawTools.drawText(fond,ConfigPartie.getNomCourt(),1000,1650,"Arial",Color.BLACK,50,0);
         DrawTools.saveFile(fond,SmartLogic.repertoire+"export\\" + filename + ".png");
@@ -234,7 +233,7 @@ public class Problem {
 
         //la première ligne est donc les moments
         int x_moment=250;
-        int y_moment=055;
+        int y_moment=55;
         for (Moment moment : ConfigPartie.list_moments_partie){
             BufferedImage img_moment = DrawTools.getImage(SmartLogic.repertoire+"Image\\"+moment+".png");
             DrawTools.drawImageCenter(graph_tableau,img_moment,x_moment,y_moment);
