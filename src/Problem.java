@@ -61,7 +61,7 @@ public class Problem {
 	        liste_indices_retenus.addAll(liste_indices_retenus_autres);
 	        list_indices = liste_indices_retenus;
             exportable = isListIndiceExportable();
-	        System.out.println("Indice integrable au tableau :"+isListIndiceExportable());
+	      //  System.out.println("Indice integrable au tableau :"+isListIndiceExportable());
             }
 
 	        int nbSolutions = Solveur.getNbSolutions(plan, liste_indices_retenus_depart, liste_indices_retenus_autres);
@@ -97,24 +97,24 @@ public class Problem {
     }
     public void export(String filename, boolean onlyUsefull){
 
-        BufferedImage fond = DrawTools.getImage(SmartLogic.repertoire+"Image\\FondSmartLogic.png");
-        DrawTools.drawImageTransformed(fond.getGraphics(),plan.export(),500,500,0,100);
+        BufferedImage fond = DrawTools.getImage(SmartLogic.repertoire+"Image\\A5.png");
+     //   DrawTools.drawImageTransformed(fond.getGraphics(),plan.export(),500,500,0,100);
         BufferedImage tableau = this.createTableau();
-        int ybase=1050;
+      //  int ybase=1050;
         int y_hors_tableau=1300;//positionnnement de depart pour les infos qui ne rentre pas dans le tableau
         for(int i=0;i<list_indices.size();i++){
             Indice ind = list_indices.get(i);
             BufferedImage img_ind=ind.export();
-            if(ind.usefull)
+          /*  if(ind.usefull)
             	DrawTools.drawText(fond,"*" + ind.description + "*",500,ybase+(i*30),"Arial", Color.BLACK,30,0);
             else
             {
             	if(!onlyUsefull)
             		DrawTools.drawText(fond,ind.description,500,ybase+(i*30),"Arial", Color.BLACK,30,0);
             }
-
+*/
             if ((ind.localisationIndice == LocalisationIndice.HORS_TABLEAU)&&((ind.usefull || !onlyUsefull))){
-                DrawTools.drawImageTransformed(fond.getGraphics(),img_ind,1800,y_hors_tableau,0,100);
+                DrawTools.drawImageTransformed(fond.getGraphics(),img_ind,800,y_hors_tableau,0,100);
                 y_hors_tableau=y_hors_tableau+50;
             }else{
                 if  (ind.usefull || !onlyUsefull){
@@ -124,7 +124,7 @@ public class Problem {
         }
 
 
-        DrawTools.drawImageTransformed(fond.getGraphics(),tableau,1800,850,0,100);
+        DrawTools.drawImageTransformed(fond.getGraphics(),tableau,800,850,0,100);
 
         DrawTools.saveFile(fond,SmartLogic.repertoire+"export\\" + filename + ".png");
 
@@ -146,6 +146,7 @@ public class Problem {
             }
 
         }
+        System.out.println("Integrable au tableau");
         return true;
     }
 

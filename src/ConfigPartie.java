@@ -10,12 +10,12 @@ import java.util.List;
 public class ConfigPartie {
     //config de ce que cherche l'algo
     public static int nombre_lieu=5;
-    public static int nombre_connexion=6;
+    public static int nombre_connexion=5;
     public static int nombre_perso=4;
     public static int nombre_moment=4;
-    public static int nombre_positions_depart=4;
+    public static int nombre_positions_depart=5;
     public static int nombre_indices=15;
-    public static boolean culdesac=false;
+    public static boolean culdesac=true;
 
     //config d'activation ou pas de certains alo
     public static boolean find_optimisation=true;

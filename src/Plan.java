@@ -65,7 +65,7 @@ public class Plan {
             if( (con.contains(Piece.C)) && (con.contains(Piece.E))) { DrawTools.drawLine(fond_rosace,320,645,665,645, Color.black);}
             if( (con.contains(Piece.D)) && (con.contains(Piece.E))) { DrawTools.drawLine(fond_rosace,300,730,385,785, Color.black);}
         }
-        DrawTools.saveFile(fond_rosace,SmartLogic.repertoire+"export\\rosace.png");
+       // DrawTools.saveFile(fond_rosace,SmartLogic.repertoire+"export\\rosace.png");
         return fond_rosace;
     }
 }
