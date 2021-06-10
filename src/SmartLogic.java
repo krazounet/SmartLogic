@@ -1,10 +1,11 @@
 
 public final class SmartLogic {
 
-    public static String repertoire = "";
+    static String repertoire = "";
+    static String nom_export = ConfigPartie.nom_export;
 
     public static void main(String[] args) {
-        String nom_export = ConfigPartie.nom_export;
+
         Problem p = new Problem();
         p.exportVierge(nom_export + "_EMPTY");
         p.export(nom_export, false);
