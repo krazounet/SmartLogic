@@ -15,7 +15,7 @@ public class ConfigPartie {
     public static int nombre_moment=4;
     public static int nombre_positions_depart=5;
     public static int nombre_indices=15;
-    public static boolean culdesac=true;
+    public static boolean culdesac=false;
 
     //config d'activation ou pas de certains alo
     public static boolean find_optimisation=true;

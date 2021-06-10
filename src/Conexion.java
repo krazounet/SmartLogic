@@ -35,20 +35,25 @@ public class Conexion {
 	        for (int i=0;i<ConfigPartie.nombre_connexion;i++){
 	            list_a_retourner.add(list_temp_connexions_possibles.get(i));
 	        }
-
 	        
-	        // gestion des culs de sac
-			HashMap<Piece,Integer> nbOccurenceLieu = new HashMap<>();
-			for(Piece piece :ConfigPartie.list_pieces_partie)//
-				nbOccurenceLieu.put(piece,0);
-			for(Conexion conexionToTest : list_a_retourner)
-			{
-				nbOccurenceLieu.put(conexionToTest.Piece1,nbOccurenceLieu.get(conexionToTest.Piece1)+1 );
-				nbOccurenceLieu.put(conexionToTest.Piece2,nbOccurenceLieu.get(conexionToTest.Piece2)+1 );
-			}
+	        // Toutes les pièces sont elles accessibles ?
+	        listOK = isAllZonesConnected(list_a_retourner);
 
-	        if((ConfigPartie.culdesac)&&(nbOccurenceLieu.containsValue(1))){listOK = true;}
-	        else listOK = (!ConfigPartie.culdesac) && (!nbOccurenceLieu.containsValue(1));
+	        // gestion des culs de sac
+	        if(listOK)
+	        {
+				HashMap<Piece,Integer> nbOccurenceLieu = new HashMap<>();
+				for(Piece piece :ConfigPartie.list_pieces_partie)//
+					nbOccurenceLieu.put(piece,0);
+				for(Conexion conexionToTest : list_a_retourner)
+				{
+					nbOccurenceLieu.put(conexionToTest.Piece1,nbOccurenceLieu.get(conexionToTest.Piece1)+1 );
+					nbOccurenceLieu.put(conexionToTest.Piece2,nbOccurenceLieu.get(conexionToTest.Piece2)+1 );
+				}
+	
+		        if((ConfigPartie.culdesac)&&(nbOccurenceLieu.containsValue(1))){listOK = true;}
+		        else listOK = (!ConfigPartie.culdesac) && (!nbOccurenceLieu.containsValue(1));
+	        }
 
 
 	        // Test pour voir si des routes se croisent
@@ -85,6 +90,44 @@ public class Conexion {
     	} while(!listOK);
     	return list_a_retourner;
     }
+
+    
+	public static boolean isAllZonesConnected(List<Conexion> listToTest)
+	{
+		List<Boolean> listConnected = new ArrayList<Boolean>();
+		for(int n = 0; n < ConfigPartie.list_pieces_partie.size(); n++)
+		{
+			if(n == 0)
+				listConnected.add(true);
+			else
+				listConnected.add(false);
+		}
+		
+		int zonesConnected = 1;
+		int oldZonesConnected;
+		
+		do
+		{
+			oldZonesConnected = zonesConnected;
+			for(Conexion conexionToTest : listToTest)
+			{
+				if(listConnected.get(ConfigPartie.list_pieces_partie.indexOf(conexionToTest.Piece1)) || listConnected.get(ConfigPartie.list_pieces_partie.indexOf(conexionToTest.Piece2)))
+				{
+					listConnected.set(ConfigPartie.list_pieces_partie.indexOf(conexionToTest.Piece1), true);
+					listConnected.set(ConfigPartie.list_pieces_partie.indexOf(conexionToTest.Piece2), true);
+				}
+			}
+			
+			zonesConnected = 0;
+			for(Boolean zoneToTest : listConnected)
+			{
+				if(zoneToTest)
+					zonesConnected++;
+			}
+		} while(zonesConnected != oldZonesConnected);
+		
+		return(zonesConnected == ConfigPartie.list_pieces_partie.size());
+	}
 
 public boolean contains (Piece piece_a_tester){
         if (piece_a_tester == Piece1) return true;
