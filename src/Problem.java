@@ -151,24 +151,17 @@ public class Problem {
     
     public void export(String filename, boolean onlyUsefull){
 
-        BufferedImage fond = DrawTools.getImage(SmartLogic.repertoire+"Image\\A5.png");
-     //   DrawTools.drawImageTransformed(fond.getGraphics(),plan.export(),500,500,0,100);
+        BufferedImage fond = DrawTools.getImage(SmartLogic.repertoire+"Image\\15x15.png");
+
         BufferedImage tableau = this.createTableau(true, true);
-      //  int ybase=1050;
-        int y_hors_tableau=1300;//positionnnement de depart pour les infos qui ne rentre pas dans le tableau
+
+        int y_hors_tableau=800;//positionnnement de depart pour les infos qui ne rentre pas dans le tableau
         for(int i=0;i<list_indices.size();i++){
             Indice ind = list_indices.get(i);
             BufferedImage img_ind=ind.export();
-          /*  if(ind.usefull)
-            	DrawTools.drawText(fond,"*" + ind.description + "*",500,ybase+(i*30),"Arial", Color.BLACK,30,0);
-            else
-            {
-            	if(!onlyUsefull)
-            		DrawTools.drawText(fond,ind.description,500,ybase+(i*30),"Arial", Color.BLACK,30,0);
-            }
-*/
+
             if ((ind.localisationIndice == LocalisationIndice.HORS_TABLEAU)&&((ind.usefull || !onlyUsefull))){
-                DrawTools.drawImageTransformed(fond.getGraphics(),img_ind,800,y_hors_tableau,0,100);
+                DrawTools.drawImageTransformed(fond.getGraphics(),img_ind,1500,y_hors_tableau,0,100);
                 y_hors_tableau=y_hors_tableau+50;
             }else{
                 if  (ind.usefull || !onlyUsefull){
@@ -176,10 +169,16 @@ public class Problem {
                 }
             }
         }
-
-
+        tableau=DrawTools.Zoom(tableau,130);
         DrawTools.drawImageTransformed(fond.getGraphics(),tableau,800,850,0,100);
+        //cartouche
+        for(int idx_pers=0; idx_pers<ConfigPartie.list_personnes_partie.size();idx_pers++){
+            BufferedImage image_pers = DrawTools.getImage(SmartLogic.repertoire+"Image\\"+ConfigPartie.list_personnes_partie.get(idx_pers)+".png");
+            DrawTools.drawImageTransformed(fond.getGraphics(),image_pers,100+(idx_pers*100),100,0,100);
+        }
 
+        //caractéristiques
+        DrawTools.drawText(fond,ConfigPartie.getNomCourt(),1000,1650,"Arial",Color.BLACK,50,0);
         DrawTools.saveFile(fond,SmartLogic.repertoire+"export\\" + filename + ".png");
 
     }

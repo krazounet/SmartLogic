@@ -112,6 +112,14 @@ public class DrawTools
         g2d.setStroke(new BasicStroke(12f));//épaisseur du trait
         g2d.drawLine(x1, y1, x2, y2);
     }
-
+    public static BufferedImage Zoom (BufferedImage source, int zoom){
+        int largeur = source.getWidth()*zoom/100;
+        int hauteur = source.getHeight()*zoom/100;
+        BufferedImage fond = new BufferedImage(largeur,hauteur,BufferedImage.TYPE_INT_ARGB);
+        BufferedImage image_zoomee = new BufferedImage(largeur,hauteur,BufferedImage.TYPE_INT_ARGB);
+        DrawTools.drawImageTransformed(fond.getGraphics(),source,largeur/2,hauteur/2,0,100);
+        DrawTools.drawImageTransformed(image_zoomee.getGraphics(),fond,largeur/2,hauteur/2,0,zoom);
+        return image_zoomee;
+    }
 
 }
