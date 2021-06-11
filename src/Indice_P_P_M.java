@@ -22,7 +22,19 @@ public final class Indice_P_P_M extends Indice{
     @Override
     public boolean check(Solution solution)
     {
-    	return(solution.stats.get("Met_" + this.list_personne.get(0).name() + this.list_personne.get(1).name() + this.moment.name()) != null);
+    	boolean valueToReturn = true;
+    	for(int idPA = 0; idPA < this.list_personne.size() - 1; idPA++)
+    	{
+    		Personne personne1 = this.list_personne.get(idPA);
+        	for(int idPB = idPA + 1; idPB < this.list_personne.size(); idPB++)
+        	{
+        		Personne personne2 = this.list_personne.get(idPB);
+        		if(solution.stats.get("Met_" + personne1.name() + personne2.name() + this.moment.name()) == null)
+        			valueToReturn = false;
+        	}
+    	}
+    	return(valueToReturn);
+//    	return(solution.stats.get("Met_" + this.list_personne.get(0).name() + this.list_personne.get(1).name() + this.moment.name()) != null);
     }
 
     @Override
