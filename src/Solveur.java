@@ -52,7 +52,7 @@ public class Solveur
 				if(!liste_indices_autres.get(idToRemove).usefull)
 					continue;
 				
-				List<Indice> liste_indices_autres_optimize = new ArrayList<Indice>();
+				List<Indice> liste_indices_autres_optimize = new ArrayList<>();
 				for(int idToAdd = 0; idToAdd < liste_indices_autres.size(); idToAdd++)
 				{
 					if(idToAdd != idToRemove && liste_indices_autres.get(idToAdd).usefull)
@@ -74,7 +74,7 @@ public class Solveur
 		if(ConfigPartie.optimize_start_indices)
 		{
 			// Test sur les indices de départ
-			List<Indice> liste_indices_autres_optimize = new ArrayList<Indice>();
+			List<Indice> liste_indices_autres_optimize = new ArrayList<>();
 			for(int idToAdd = 0; idToAdd < liste_indices_autres.size(); idToAdd++)
 			{
 				if(liste_indices_autres.get(idToAdd).usefull)

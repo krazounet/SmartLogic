@@ -161,7 +161,7 @@ public class Problem {
             BufferedImage img_ind=ind.export();
 
             if ((ind.localisationIndice == LocalisationIndice.HORS_TABLEAU)&&((ind.usefull || !onlyUsefull))){
-                DrawTools.drawImageTransformed(fond.getGraphics(),img_ind,1500,y_hors_tableau,0,100);
+                DrawTools.drawImageTransformed(fond.getGraphics(),img_ind,1550,y_hors_tableau,0,100);
                 y_hors_tableau=y_hors_tableau+50;
             }else{
                 if  (ind.usefull || !onlyUsefull){
@@ -169,7 +169,7 @@ public class Problem {
                 }
             }
         }
-        tableau=DrawTools.Zoom(tableau,130);
+        tableau=DrawTools.Zoom(tableau,190);
         DrawTools.drawImageTransformed(fond.getGraphics(),tableau,800,850,0,100);
         //cartouche
         for(int idx_pers=0; idx_pers<ConfigPartie.list_personnes_partie.size();idx_pers++){

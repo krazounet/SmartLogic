@@ -43,19 +43,16 @@ public class Solution {
         for(int r1 = 0; r1 < solution.size(); r1++)
         {
         	Reservation resa1 = solution.get(r1);
-        	for(int r2 = 0; r2 < solution.size(); r2++)
-        	{
-            	Reservation resa2 = solution.get(r2);
-            	if(resa1 == resa2)
-            		continue;
-            	if(resa1.moment == resa2.moment && resa1.lieu == resa2.lieu)
-            	{
-                    // Deux personnes dans le m�me lieu connu � un moment inconnu : "Met_P1P2L" = "MM"
-                	stats.put("Met_" + resa1.personne.name() + resa2.personne.name() + resa1.lieu.piece.name(), resa1.moment.name());
-                    // Deux personnes dans le m�me lieu inconnu � un moment connu : "Met_P1P2MM" = "L"
-                	stats.put("Met_" + resa1.personne.name() + resa2.personne.name() + resa1.moment.name(), resa1.lieu.piece.name());
-            	}
-        	}
+			for (Reservation resa2 : solution) {
+				if (resa1 == resa2)
+					continue;
+				if (resa1.moment == resa2.moment && resa1.lieu == resa2.lieu) {
+					// Deux personnes dans le m�me lieu connu � un moment inconnu : "Met_P1P2L" = "MM"
+					stats.put("Met_" + resa1.personne.name() + resa2.personne.name() + resa1.lieu.piece.name(), resa1.moment.name());
+					// Deux personnes dans le m�me lieu inconnu � un moment connu : "Met_P1P2MM" = "L"
+					stats.put("Met_" + resa1.personne.name() + resa2.personne.name() + resa1.moment.name(), resa1.lieu.piece.name());
+				}
+			}
         }
         
         // Cr�ation des HashMaps qui concernent un lieu connu et un moment connu
@@ -86,7 +83,7 @@ public class Solution {
     	// Cr�ation des HashMaps qui indiquent le nombre de lieux diff�rents � un moment donn�
         for(Moment present : ConfigPartie.list_moments_partie)
         {
-        	List<Piece> listDiffPieces = new ArrayList<Piece>();
+        	List<Piece> listDiffPieces = new ArrayList<>();
     		for(Reservation reservation : solution)
     		{
     			if(reservation.moment == present)
@@ -102,7 +99,7 @@ public class Solution {
         // Cr�ation des HashMaps qui indiquent le nombre de lieux diff�rents visit�s par un personnage donn�
         for(Personne personne : ConfigPartie.list_personnes_partie)
         {
-        	List<Piece> listDiffPieces = new ArrayList<Piece>();
+        	List<Piece> listDiffPieces = new ArrayList<>();
     		for(Reservation reservation : solution)
     		{
     			if(reservation.personne == personne)
@@ -136,9 +133,9 @@ public class Solution {
     
     public static List<Solution> getAllValidSolutionFromListIndicesDepart(Plan plan, List<Indice_P_L_M> liste_indices_depart)
     {
-    	List<Solution> listSolutions = new ArrayList<Solution>();
+    	List<Solution> listSolutions = new ArrayList<>();
     	
-    	List<List<List<Reservation>>> allPossibleMoves = new ArrayList<List<List<Reservation>>>();
+    	List<List<List<Reservation>>> allPossibleMoves = new ArrayList<>();
     	
     	for(Personne personne : ConfigPartie.list_personnes_partie)
     	{
@@ -168,7 +165,7 @@ public class Solution {
         	allPossibleMoves.add(allPossibleMoveIndiv);
     	}
     	
-    	List<Integer> listIndex = new ArrayList<Integer>();
+    	List<Integer> listIndex = new ArrayList<>();
     	for(int i = 0; i < ConfigPartie.list_personnes_partie.size(); i++)
     		listIndex.add(0);
 
@@ -179,7 +176,7 @@ public class Solution {
     
     public static void addAllSolutions(List<Solution> listSolutions, List<List<List<Reservation>>> allPossibleMoves, List<Integer> listIndex)
     {
-    	List<Reservation> listToAdd = new ArrayList<Reservation>();
+    	List<Reservation> listToAdd = new ArrayList<>();
     	
     	for(int idPerso = 0; idPerso < listIndex.size(); idPerso++)
     	{
@@ -204,7 +201,7 @@ public class Solution {
     		{
     			listIndex.set(posToIncrement, valueToIncrement);
 
-    	    	listToAdd = new ArrayList<Reservation>();
+    	    	listToAdd = new ArrayList<>();
     	    	
     	    	for(int idPerso = 0; idPerso < listIndex.size(); idPerso++)
     	    	{
@@ -221,9 +218,9 @@ public class Solution {
 
     public static List<List<Reservation>> getAllPossibleMoveForAPerson(Plan plan, Personne personne)
     {
-    	List<List<Reservation>> allPossibleMove = new ArrayList<List<Reservation>>();
+    	List<List<Reservation>> allPossibleMove = new ArrayList<>();
 
-    	getAllPossibleMoveForAPersonRecursive(allPossibleMove, new ArrayList<Reservation>(), plan, personne);
+    	getAllPossibleMoveForAPersonRecursive(allPossibleMove, new ArrayList<>(), plan, personne);
     	
         return(allPossibleMove);
     }
@@ -232,8 +229,7 @@ public class Solution {
     {
     	if(actualMove.size() >= ConfigPartie.list_moments_partie.size())
     	{
-    		List<Reservation> moveToAdd = new ArrayList<Reservation>();
-    		moveToAdd.addAll(actualMove);
+			List<Reservation> moveToAdd = new ArrayList<>(actualMove);
     		allPossibleMove.add(moveToAdd);
     		return;
     	}
