@@ -155,14 +155,14 @@ public class Problem {
 
         BufferedImage tableau = this.createTableau(true, true);
 
-        int y_hors_tableau=800;//positionnnement de depart pour les infos qui ne rentre pas dans le tableau
+        int y_hors_tableau=1370;//positionnnement de depart pour les infos qui ne rentre pas dans le tableau
         for(int i=0;i<list_indices.size();i++){
             Indice ind = list_indices.get(i);
             BufferedImage img_ind=ind.export();
 
             if ((ind.localisationIndice == LocalisationIndice.HORS_TABLEAU)&&((ind.usefull || !onlyUsefull))){
-                DrawTools.drawImageTransformed(fond.getGraphics(),img_ind,1550,y_hors_tableau,0,100);
-                y_hors_tableau=y_hors_tableau+50;
+                DrawTools.drawImageTransformed(fond.getGraphics(),DrawTools.Zoom(img_ind,200),1420,y_hors_tableau,0,100);
+                y_hors_tableau=y_hors_tableau+100;
             }else{
                 if  (ind.usefull || !onlyUsefull){
                     DrawTools.drawImageTransformed(tableau.getGraphics(),img_ind,ind.getCoordonnee().x + 100,ind.getCoordonnee().y,0,100);
@@ -174,7 +174,7 @@ public class Problem {
         //cartouche
         for(int idx_pers=0; idx_pers<ConfigPartie.list_personnes_partie.size();idx_pers++){
             BufferedImage image_pers = DrawTools.getImage(SmartLogic.repertoire+"Image\\"+ConfigPartie.list_personnes_partie.get(idx_pers)+".png");
-            DrawTools.drawImageTransformed(fond.getGraphics(),image_pers,100+(idx_pers*100),100,0,100);
+            DrawTools.drawImageTransformed(fond.getGraphics(),DrawTools.Zoom(image_pers,150),100+(idx_pers*150),100,0,100);
         }
         //caractéristiques
         DrawTools.drawText(fond,ConfigPartie.getNomCourt(),1000,1650,"Arial",Color.BLACK,50,0);

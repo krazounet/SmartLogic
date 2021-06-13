@@ -13,7 +13,7 @@ public class ConfigPartie {
     public static int nombre_connexion=5;
     public static int nombre_perso=4;
     public static int nombre_moment=4;
-    public static int nombre_positions_depart=5;
+    public static int nombre_positions_depart=4;
     public static int nombre_indices=15;
     public static boolean culdesac=false;
 
@@ -34,14 +34,14 @@ public class ConfigPartie {
     public static String nom_export = getNomExport();
 
     public static String getNomCourt() {
-        String nom= nombre_perso+"P"+nombre_moment+"M"+nombre_lieu+"L"+nombre_connexion+"C ";
+        String nom= nombre_perso+"P"+nombre_moment+"M"+nombre_lieu+"L"+nombre_connexion+"C";
         if (culdesac) nom=nom+"CDS ";
-        nom=nom+" - ID"+nombre_positions_depart+" IT"+nombre_indices+ " - ";
+        nom=nom+" - ID"+nombre_positions_depart+" IT"+nombre_indices;
         return nom;
     }
     private static String getNomExport() {
         String nom= getNomCourt();
-        nom=nom+ System.currentTimeMillis();
+        nom=nom + " - " + System.currentTimeMillis();
         return nom;
     }
 
