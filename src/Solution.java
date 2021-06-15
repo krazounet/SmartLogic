@@ -36,7 +36,7 @@ public class Solution {
         for(Reservation reservation : solution)
         {
             // Liste des r�servations : "Res_PPMML" = "Yes"
-        	stats.put("Res_" + reservation.personne.name() + reservation.moment.name() + reservation.lieu.piece.name(), "Yes");
+        	stats.put(new StringBuilder("Res_").append(reservation.personne.name()).append(reservation.moment.name()).append(reservation.lieu.piece.name()).toString(), "Yes");
         }
         
         // Cr�ation des HashMaps qui concernent deux r�servations
@@ -48,9 +48,9 @@ public class Solution {
 					continue;
 				if (resa1.moment == resa2.moment && resa1.lieu == resa2.lieu) {
 					// Deux personnes dans le m�me lieu connu � un moment inconnu : "Met_P1P2L" = "MM"
-					stats.put("Met_" + resa1.personne.name() + resa2.personne.name() + resa1.lieu.piece.name(), resa1.moment.name());
+					stats.put(new StringBuilder("Met_").append(resa1.personne.name()).append(resa2.personne.name()).append(resa1.lieu.piece.name()).toString(), resa1.moment.name());
 					// Deux personnes dans le m�me lieu inconnu � un moment connu : "Met_P1P2MM" = "L"
-					stats.put("Met_" + resa1.personne.name() + resa2.personne.name() + resa1.moment.name(), resa1.lieu.piece.name());
+					stats.put(new StringBuilder("Met_").append(resa1.personne.name()).append(resa2.personne.name()).append(resa1.moment.name()).toString(), resa1.lieu.piece.name());
 				}
 			}
         }
@@ -65,7 +65,7 @@ public class Solution {
         			if(reservation.moment == present && reservation.lieu.piece == piece)
         				compteur++;
         		// N personnes dans le m�me lieu connu � un moment connu : "Grp_MML" = "N"
-            	stats.put("Grp_" + present.name() + piece.name(), "" + compteur);
+            	stats.put(new StringBuilder("Grp_").append(present.name()).append(piece.name()).toString(), ""+compteur);
         	}
         }
         
@@ -77,7 +77,7 @@ public class Solution {
     			if(reservation.lieu.piece == piece)
     				compteur++;
     		// Occurence d'un lieu dans le graphe : "OcL_L" = "N"
-        	stats.put("OcL_" + piece.name(), "" + compteur);
+        	stats.put(new StringBuilder("OcL_").append(piece.name()).toString(), "" + compteur);
     	}
     	
     	// Cr�ation des HashMaps qui indiquent le nombre de lieux diff�rents � un moment donn�
@@ -93,7 +93,7 @@ public class Solution {
     			}
     		}
     		// Nombre de lieu � un moment : "OcLM_MM" = "N"
-        	stats.put("OcLM_" + present.name(), "" + listDiffPieces.size());
+        	stats.put(new StringBuilder("OcLM_").append(present.name()).toString(), "" + listDiffPieces.size());
         }
 
         // Cr�ation des HashMaps qui indiquent le nombre de lieux diff�rents visit�s par un personnage donn�
@@ -109,7 +109,7 @@ public class Solution {
     			}
     		}
     		// Nombre de lieu visit� par une personne : "OcLP_PP" = "N"
-        	stats.put("OcLP_" + personne.name(), "" + listDiffPieces.size());
+        	stats.put(new StringBuilder("OcLP_").append(personne.name()).toString(), "" + listDiffPieces.size());
         }
 
         // Cr�ation des HashMaps qui indiquent le nombre de fois qu'une personne � visit� un lieu donn�
@@ -124,7 +124,7 @@ public class Solution {
         				compteur++;
         		}
         		// Nombre de fois qu'une personne donn� � visit� un lieu donn� : "OcPinL_PPL" = "N"
-            	stats.put("OcPinL_" + personne.name() + piece.name(), "" + compteur);
+            	stats.put(new StringBuilder("OcPinL_").append(personne.name()).append(piece.name()).toString(), "" + compteur);
         	}
         }
 
