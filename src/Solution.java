@@ -15,7 +15,8 @@ public class Solution {
 
                 if (present == Moment.M1) lieu = plan.getRandomLieu();
                 else {
-                    lieu = lieu.getRandomLieuSuivant(plan);
+					assert lieu != null;
+					lieu = lieu.getRandomLieuSuivant(plan);
                        }
                 solution.add(new Reservation(lieu,personne,present));
             }
@@ -261,11 +262,11 @@ public class Solution {
     
     @Override
     public String toString() {
-        String s="";
+        StringBuilder s= new StringBuilder();
         for (Reservation reservation : solution){
-            s=s+reservation.toString();
+            s.append(reservation.toString());
         }
-        return s;
+        return s.toString();
     }
 
 

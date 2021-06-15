@@ -85,16 +85,16 @@ public class Problem {
 
     @Override
     public String toString() {
-        String retour = "Problem{" +
-                "plan=" + plan.toString() +""+
+        StringBuilder retour = new StringBuilder("Problem{" +
+                "plan=" + plan.toString() + "" +
                 //", indicelist=" + indicelist +
                 ", solution=\n" + solution.toString() +
-                "}\n Indices : \n";
+                "}\n Indices : \n");
         for (Indice ind : list_indices){
-            retour=retour+ind.description+"\n";
+            retour.append(ind.description).append("\n");
         }
 
-        return retour;
+        return retour.toString();
     }
     
     public void exportSolution(String filename)
@@ -123,7 +123,7 @@ public class Problem {
         		BufferedImage caseToDraw = new BufferedImage(100, 100, BufferedImage.TYPE_INT_ARGB);
         		
 				List<List<Point>> listListPosCharacter = Arrays.asList(
-						Arrays.asList(new Point(2, 2)),
+                        Collections.singletonList(new Point(2, 2)),
 						Arrays.asList(new Point(1, 2), new Point(3, 2)),
 						Arrays.asList(new Point(1, 1), new Point(3, 1), new Point(2, 3)),
 						Arrays.asList(new Point(1, 1), new Point(3, 1), new Point(1, 3), new Point(3, 3)),
@@ -156,16 +156,15 @@ public class Problem {
         BufferedImage tableau = this.createTableau(true, true);
 
         int y_hors_tableau=1370;//positionnnement de depart pour les infos qui ne rentre pas dans le tableau
-        for(int i=0;i<list_indices.size();i++){
-            Indice ind = list_indices.get(i);
-            BufferedImage img_ind=ind.export();
+        for (Indice ind : list_indices) {
+            BufferedImage img_ind = ind.export();
 
-            if ((ind.localisationIndice == LocalisationIndice.HORS_TABLEAU)&&((ind.usefull || !onlyUsefull))){
-                DrawTools.drawImageTransformed(fond.getGraphics(),DrawTools.Zoom(img_ind,200),1420,y_hors_tableau,0,100);
-                y_hors_tableau=y_hors_tableau+100;
-            }else{
-                if  (ind.usefull || !onlyUsefull){
-                    DrawTools.drawImageTransformed(tableau.getGraphics(),img_ind,ind.getCoordonnee().x + 100,ind.getCoordonnee().y,0,100);
+            if ((ind.localisationIndice == LocalisationIndice.HORS_TABLEAU) && ((ind.usefull || !onlyUsefull))) {
+                DrawTools.drawImageTransformed(fond.getGraphics(), DrawTools.Zoom(img_ind, 200), 1420, y_hors_tableau, 0, 100);
+                y_hors_tableau = y_hors_tableau + 100;
+            } else {
+                if (ind.usefull || !onlyUsefull) {
+                    DrawTools.drawImageTransformed(tableau.getGraphics(), img_ind, ind.getCoordonnee().x + 100, ind.getCoordonnee().y, 0, 100);
                 }
             }
         }

@@ -89,7 +89,7 @@ public class Solveur
 					if(!liste_indices_depart.get(idToRemove).usefull)
 						continue;
 					
-					List<Indice_P_L_M> liste_indices_depart_optimize = new ArrayList<Indice_P_L_M>();
+					List<Indice_P_L_M> liste_indices_depart_optimize = new ArrayList<>();
 					for(int idToAdd = 0; idToAdd < liste_indices_depart.size(); idToAdd++)
 					{
 						if(idToAdd != idToRemove && liste_indices_depart.get(idToAdd).usefull)
