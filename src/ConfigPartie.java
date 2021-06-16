@@ -13,7 +13,7 @@ public class ConfigPartie {
     public static int nombre_connexion=5;
     public static int nombre_perso=4;
     public static int nombre_moment=4;
-    public static int nombre_positions_depart=4;
+    public static int nombre_positions_depart=6;
     public static int nombre_indices=15;
     public static boolean culdesac=false;
 

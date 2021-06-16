@@ -132,7 +132,7 @@ public class Solution {
 
     }
     
-    public static List<Solution> getAllValidSolutionFromListIndicesDepart(Plan plan, List<Indice_P_L_M> liste_indices_depart)
+    public static List<Solution> getAllValidSolutionFromListIndices(Plan plan, List<Indice_P_L_M> liste_indices_depart, List<Indice> liste_indices_autres)
     {
     	List<Solution> listSolutions = new ArrayList<>();
     	
@@ -140,7 +140,7 @@ public class Solution {
     	
     	for(Personne personne : ConfigPartie.list_personnes_partie)
     	{
-        	List<List<Reservation>> allPossibleMoveIndiv = getAllPossibleMoveForAPerson(plan, personne);
+        	List<List<Reservation>> allPossibleMoveIndiv = getAllPossibleMoveForAPerson(plan, personne, liste_indices_depart, liste_indices_autres);
         	
         	for(int indexMoveToTest = 0; indexMoveToTest < allPossibleMoveIndiv.size(); indexMoveToTest++)
         	{
@@ -217,16 +217,16 @@ public class Solution {
     	} while(posToIncrement != -1);
     }
 
-    public static List<List<Reservation>> getAllPossibleMoveForAPerson(Plan plan, Personne personne)
+    public static List<List<Reservation>> getAllPossibleMoveForAPerson(Plan plan, Personne personne, List<Indice_P_L_M> liste_indices_depart, List<Indice> liste_indices_autres)
     {
     	List<List<Reservation>> allPossibleMove = new ArrayList<>();
 
-    	getAllPossibleMoveForAPersonRecursive(allPossibleMove, new ArrayList<>(), plan, personne);
+    	getAllPossibleMoveForAPersonRecursive(allPossibleMove, new ArrayList<>(), plan, personne, liste_indices_depart, liste_indices_autres);
     	
         return(allPossibleMove);
     }
     
-    public static void getAllPossibleMoveForAPersonRecursive(List<List<Reservation>> allPossibleMove, List<Reservation> actualMove, Plan plan, Personne personne)
+    public static void getAllPossibleMoveForAPersonRecursive(List<List<Reservation>> allPossibleMove, List<Reservation> actualMove, Plan plan, Personne personne, List<Indice_P_L_M> liste_indices_depart, List<Indice> liste_indices_autres)
     {
     	if(actualMove.size() >= ConfigPartie.list_moments_partie.size())
     	{
@@ -242,7 +242,8 @@ public class Solution {
     		{
     			actualMove.add(new Reservation(lieu, personne, present));
 
-    			getAllPossibleMoveForAPersonRecursive(allPossibleMove, actualMove, plan, personne);
+    			if(isMoveValid(actualMove, liste_indices_depart, liste_indices_autres))
+    				getAllPossibleMoveForAPersonRecursive(allPossibleMove, actualMove, plan, personne, liste_indices_depart, liste_indices_autres);
     			
     			actualMove.remove(actualMove.size() - 1);
     		}
@@ -252,12 +253,61 @@ public class Solution {
     			{
         			actualMove.add(new Reservation(lieu, personne, present));
 
-        			getAllPossibleMoveForAPersonRecursive(allPossibleMove, actualMove, plan, personne);
+        			if(isMoveValid(actualMove, liste_indices_depart, liste_indices_autres))
+        				getAllPossibleMoveForAPersonRecursive(allPossibleMove, actualMove, plan, personne, liste_indices_depart, liste_indices_autres);
         			
         			actualMove.remove(actualMove.size() - 1);
     			}
     		}
     	}
+    }
+    
+    public static boolean isMoveValid(List<Reservation> actualMove, List<Indice_P_L_M> liste_indices_depart, List<Indice> liste_indices_autres)
+    {
+    	for(Indice_P_L_M indiceToTest : liste_indices_depart)
+    	{
+    		for(Reservation reservationToTest : actualMove)
+    		{
+    			if(indiceToTest.personne == reservationToTest.personne && indiceToTest.moment == reservationToTest.moment && indiceToTest.piece != reservationToTest.lieu.piece)
+    				return(false);
+    		}
+    	}
+    	
+    	for(Indice indiceToTest : liste_indices_autres)
+    	{
+			switch(indiceToTest.typeIndice)
+			{
+			case P_L_M:
+	    		for(Reservation reservationToTest : actualMove)
+	    		{
+        			if(((Indice_P_L_M)indiceToTest).personne == reservationToTest.personne && ((Indice_P_L_M)indiceToTest).moment == reservationToTest.moment && ((Indice_P_L_M)indiceToTest).piece != reservationToTest.lieu.piece)
+        				return(false);
+	    		}
+				break;
+			case x_P_L:
+				// on peut trier ici si on dépasse la valeur
+				break;
+			case x_L_M:
+	    		for(Reservation reservationToTest : actualMove)
+	    		{
+	    			if(((Indice_x_L_M)indiceToTest).moment == reservationToTest.moment && ((Indice_x_L_M)indiceToTest).piece == reservationToTest.lieu.piece && ((Indice_x_L_M)indiceToTest).combien == 0)
+        				return(false);
+	    		}
+				break;
+			case x_Ldiff_P:
+				// on peut trier ici si on dépasse la valeur
+				break;
+			case x_Ldiff_M:
+				break;
+			case x_L:
+				break;
+			case P_P_M:
+				break;
+			case P_P_L:
+				break;
+			}
+    	}
+    	return(true);
     }
     
     @Override

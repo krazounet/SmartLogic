@@ -12,7 +12,7 @@ public final class Indice_x_Ldiff_M extends Indice{
     Moment moment;
 
     public Indice_x_Ldiff_M(int combien, Moment moment,String desc, boolean negation) {
-        super.typeIndice = TypeIndice.x_L_M;
+        super.typeIndice = TypeIndice.x_Ldiff_M;
         super.description=desc;
         super.negation=negation;
         super.localisationIndice=LocalisationIndice.COLONNE;

@@ -7,7 +7,7 @@ public class Solveur
 	{
 		int nbSolutions = 0;
 		
-		List<Solution> listSolutions = Solution.getAllValidSolutionFromListIndicesDepart(plan, liste_indices_depart);
+		List<Solution> listSolutions = Solution.getAllValidSolutionFromListIndices(plan, liste_indices_depart, liste_indices_autres);
 		
 		for(Solution solutionToTest : listSolutions)
 		{

@@ -9,7 +9,7 @@ public final class Indice_x_Ldiff_P extends Indice{
     int combien; //nbre de piece différentes
     Personne personne;
     public Indice_x_Ldiff_P(int combien, Personne personne,String desc, boolean negation) {
-        super.typeIndice = TypeIndice.x_L_M;
+        super.typeIndice = TypeIndice.x_Ldiff_P;
         super.description=desc;
         super.negation=negation;
         super.localisationIndice=LocalisationIndice.HORS_TABLEAU;
