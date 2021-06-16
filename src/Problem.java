@@ -22,15 +22,15 @@ public class Problem {
 
 
         boolean monoSolution ;
-        boolean exportable ;//passe a true si aucun indice ne s'affiche dans la meme case
+
 
 
         do
         {
             monoSolution = false;
-            exportable = false;
+
             //algo indice ici
-            while(!exportable){
+
             solution = new Solution(plan);
 
             List<Indice_P_L_M> liste_indices_depart = new ArrayList<>(Indice_P_L_M.all_PLM(solution));
@@ -51,26 +51,42 @@ public class Problem {
     	    liste_indices_retenus_depart.clear();
     	    liste_indices_retenus_autres.clear();
 
+    	    List<String> emplacements=new ArrayList<>();
         	for (int index_indice = 0; index_indice<ConfigPartie.nombre_positions_depart;index_indice++){
         		liste_indices_retenus_depart.add(liste_indices_depart.get(index_indice));
+                emplacements.add(liste_indices_depart.get(index_indice).getEmplacement());
 	        }
         	liste_indices_retenus.addAll(liste_indices_retenus_depart);
 
-	        for (int index_indice = 0; index_indice<ConfigPartie.nombre_indices;index_indice++){
-	        	liste_indices_retenus_autres.add(liste_tous_les_indices.get(index_indice));
-	        }
+
+            int index_indice_encour=0;
+            while (liste_indices_retenus_autres.size()!=ConfigPartie.nombre_indices){
+                Indice indice_a_analyser = liste_tous_les_indices.get(index_indice_encour);
+                if (indice_a_analyser.localisationIndice == LocalisationIndice.HORS_TABLEAU) {
+                    liste_indices_retenus_autres.add(indice_a_analyser);
+
+                }else{//indice dans le tableau
+                    if (!emplacements.contains(indice_a_analyser.getEmplacement())){//si la place est libre
+                        liste_indices_retenus_autres.add(indice_a_analyser);
+                        emplacements.add(indice_a_analyser.getEmplacement());
+                    }
+
+                }
+                index_indice_encour++;
+            }
+
+
 	        liste_indices_retenus.addAll(liste_indices_retenus_autres);
 	        list_indices = liste_indices_retenus;
-            exportable = isListIndiceExportable();
-	      //  System.out.println("Indice integrable au tableau :"+isListIndiceExportable());
-            }
+
+
 
 	        int nbSolutions = Solveur.getNbSolutions(plan, liste_indices_retenus_depart, liste_indices_retenus_autres);
 	        if(nbSolutions == 1)   {
             	monoSolution = true;
                 System.out.println("Mono solution trouvee");
             }else {
-                monoSolution = false;
+                //monoSolution = false;
                 System.out.println("Mono solution non trouvee");
             }
         } while(!monoSolution);
