@@ -170,12 +170,12 @@ public class Solution {
     	for(int i = 0; i < ConfigPartie.list_personnes_partie.size(); i++)
     		listIndex.add(0);
 
-    	addAllSolutions(listSolutions, allPossibleMoves, listIndex);
+    	addAllSolutions(listSolutions, allPossibleMoves, listIndex, liste_indices_autres);
     	
     	return(listSolutions);
     }
     
-    public static void addAllSolutions(List<Solution> listSolutions, List<List<List<Reservation>>> allPossibleMoves, List<Integer> listIndex)
+    public static void addAllSolutions(List<Solution> listSolutions, List<List<List<Reservation>>> allPossibleMoves, List<Integer> listIndex, List<Indice> liste_indices_autres)
     {
     	List<Reservation> listToAdd = new ArrayList<>();
     	
@@ -185,7 +185,19 @@ public class Solution {
     	}
 
     	Solution solutionToAdd = new Solution(listToAdd);
-    	listSolutions.add(solutionToAdd);
+		boolean allIndicesOK = true;
+		for(Indice indiceToTest : liste_indices_autres)
+		{
+			if(!indiceToTest.check(solutionToAdd))
+			{
+				allIndicesOK = false;
+				break;
+			}
+		}
+		
+		if(allIndicesOK)
+	    	listSolutions.add(solutionToAdd);
+		
     	
     	int posToIncrement = listIndex.size() - 1;
     	
@@ -210,7 +222,18 @@ public class Solution {
     	    	}
 
     	    	solutionToAdd = new Solution(listToAdd);
-    	    	listSolutions.add(solutionToAdd);
+    			allIndicesOK = true;
+    			for(Indice indiceToTest : liste_indices_autres)
+    			{
+    				if(!indiceToTest.check(solutionToAdd))
+    				{
+    					allIndicesOK = false;
+    					break;
+    				}
+    			}
+    			
+    			if(allIndicesOK)
+    		    	listSolutions.add(solutionToAdd);
 
     	    	posToIncrement = listIndex.size() - 1;
     		}
