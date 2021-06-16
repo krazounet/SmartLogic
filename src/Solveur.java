@@ -5,11 +5,11 @@ public class Solveur
 {
 	public static int getNbSolutions(Plan plan, List<Indice_P_L_M> liste_indices_depart, List<Indice> liste_indices_autres)
 	{
-		int nbSolutions = 0;
+//		int nbSolutions = 0;
 		
 		List<Solution> listSolutions = Solution.getAllValidSolutionFromListIndices(plan, liste_indices_depart, liste_indices_autres);
 		
-		for(Solution solutionToTest : listSolutions)
+/*		for(Solution solutionToTest : listSolutions)
 		{
 			boolean allIndicesOK = true;
 			for(Indice indiceToTest : liste_indices_autres)
@@ -28,8 +28,8 @@ public class Solveur
 					break;
 			}
 		}
-		
-		return(nbSolutions);
+		*/
+		return(listSolutions.size());
 	}
 
 	public static void detectUselessIndices(Plan plan, List<Indice_P_L_M> liste_indices_depart, List<Indice> liste_indices_autres)
