@@ -221,12 +221,12 @@ public class Solution {
     {
     	List<List<Reservation>> allPossibleMove = new ArrayList<>();
 
-    	getAllPossibleMoveForAPersonRecursive(allPossibleMove, new ArrayList<>(), plan, personne, liste_indices_depart, liste_indices_autres);
+    	getAllPossibleMoveForAPersonRecursive(allPossibleMove, new ArrayList<>(), plan, personne, liste_indices_depart, liste_indices_autres, false);
     	
         return(allPossibleMove);
     }
     
-    public static void getAllPossibleMoveForAPersonRecursive(List<List<Reservation>> allPossibleMove, List<Reservation> actualMove, Plan plan, Personne personne, List<Indice_P_L_M> liste_indices_depart, List<Indice> liste_indices_autres)
+    public static void getAllPossibleMoveForAPersonRecursive(List<List<Reservation>> allPossibleMove, List<Reservation> actualMove, Plan plan, Personne personne, List<Indice_P_L_M> liste_indices_depart, List<Indice> liste_indices_autres, boolean dontUseOptimisation)
     {
     	if(actualMove.size() >= ConfigPartie.list_moments_partie.size())
     	{
@@ -242,8 +242,8 @@ public class Solution {
     		{
     			actualMove.add(new Reservation(lieu, personne, present));
 
-    			if(isMoveValid(actualMove, liste_indices_depart, liste_indices_autres))
-    				getAllPossibleMoveForAPersonRecursive(allPossibleMove, actualMove, plan, personne, liste_indices_depart, liste_indices_autres);
+    			if(dontUseOptimisation || isMoveValid(actualMove, liste_indices_depart, liste_indices_autres))
+    				getAllPossibleMoveForAPersonRecursive(allPossibleMove, actualMove, plan, personne, liste_indices_depart, liste_indices_autres, dontUseOptimisation);
     			
     			actualMove.remove(actualMove.size() - 1);
     		}
@@ -253,8 +253,8 @@ public class Solution {
     			{
         			actualMove.add(new Reservation(lieu, personne, present));
 
-        			if(isMoveValid(actualMove, liste_indices_depart, liste_indices_autres))
-        				getAllPossibleMoveForAPersonRecursive(allPossibleMove, actualMove, plan, personne, liste_indices_depart, liste_indices_autres);
+        			if(dontUseOptimisation || isMoveValid(actualMove, liste_indices_depart, liste_indices_autres))
+        				getAllPossibleMoveForAPersonRecursive(allPossibleMove, actualMove, plan, personne, liste_indices_depart, liste_indices_autres, dontUseOptimisation);
         			
         			actualMove.remove(actualMove.size() - 1);
     			}
