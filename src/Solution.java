@@ -285,7 +285,14 @@ public class Solution {
 	    		}
 				break;
 			case x_P_L:
-				// on peut trier ici si on dépasse la valeur
+				int compteur = 0;
+	    		for(Reservation reservationToTest : actualMove)
+	    		{
+	    			if(((Indice_x_P_L)indiceToTest).personne == reservationToTest.personne && ((Indice_x_P_L)indiceToTest).piece == reservationToTest.lieu.piece)
+	    				compteur++;
+	    		}
+	    		if(compteur > ((Indice_x_P_L)indiceToTest).combien)
+	    			return(false);
 				break;
 			case x_L_M:
 	    		for(Reservation reservationToTest : actualMove)
@@ -295,7 +302,15 @@ public class Solution {
 	    		}
 				break;
 			case x_Ldiff_P:
-				// on peut trier ici si on dépasse la valeur
+				List<Piece> listPieceDiff = new ArrayList<Piece>();
+	    		for(Reservation reservationToTest : actualMove)
+	    		{
+	    			if(((Indice_x_Ldiff_P)indiceToTest).personne == reservationToTest.personne)
+	    				if(!listPieceDiff.contains(reservationToTest.lieu.piece))
+	    					listPieceDiff.add(reservationToTest.lieu.piece);
+	    		}
+	    		if(listPieceDiff.size() > ((Indice_x_Ldiff_P)indiceToTest).combien)
+	    			return(false);
 				break;
 			case x_Ldiff_M:
 				break;

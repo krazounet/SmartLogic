@@ -9,7 +9,7 @@ import java.util.List;
 
 public class ConfigPartie {
     //config de ce que cherche l'algo
-    public static int nombre_lieu=5;
+    public static int nombre_lieu=4;
     public static int nombre_connexion=5;
     public static int nombre_perso=4;
     public static int nombre_moment=4;
