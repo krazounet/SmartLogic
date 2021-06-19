@@ -233,7 +233,11 @@ public class Solution {
     			}
     			
     			if(allIndicesOK)
+    			{
     		    	listSolutions.add(solutionToAdd);
+    		    	if(listSolutions.size() > 1)
+    		    		return;
+    			}
 
     	    	posToIncrement = listIndex.size() - 1;
     		}
