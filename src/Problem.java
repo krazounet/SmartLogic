@@ -17,22 +17,20 @@ public class Problem {
     	List<Indice_P_L_M> liste_indices_retenus_depart = new ArrayList<>();
     	List<Indice> liste_indices_retenus_autres = new ArrayList<>();
 
-
         plan =new Plan();
 
-
         boolean monoSolution ;
-
-
 
         do
         {
             monoSolution = false;
-
-            //algo indice ici
+            liste_indices_retenus.clear();
+            liste_indices_retenus_depart.clear();
+            liste_indices_retenus_autres.clear();
 
             solution = new Solution(plan);
 
+            //algo indice ici
             List<Indice_P_L_M> liste_indices_depart = new ArrayList<>(Indice_P_L_M.all_PLM(solution));
             List<Indice> liste_tous_les_indices =new ArrayList<>();
             liste_tous_les_indices.addAll(Indice_x_P_L.all_xPL(solution));
@@ -47,14 +45,15 @@ public class Problem {
             Collections.shuffle(liste_indices_depart);
             Collections.shuffle(liste_tous_les_indices);
 
-            liste_indices_retenus.clear();
-    	    liste_indices_retenus_depart.clear();
-    	    liste_indices_retenus_autres.clear();
+
 
     	    List<String> emplacements=new ArrayList<>();
         	for (int index_indice = 0; index_indice<ConfigPartie.nombre_positions_depart;index_indice++){
-        		liste_indices_retenus_depart.add(liste_indices_depart.get(index_indice));
-                emplacements.add(liste_indices_depart.get(index_indice).getEmplacement());
+                Indice_P_L_M indice_a_analyser = liste_indices_depart.get(index_indice);
+                if (!emplacements.contains(indice_a_analyser.getEmplacement())) {//si la place est libre
+                    liste_indices_retenus_depart.add(indice_a_analyser);
+                    emplacements.add(indice_a_analyser.getEmplacement());
+                }
 	        }
         	liste_indices_retenus.addAll(liste_indices_retenus_depart);
 
@@ -195,26 +194,6 @@ public class Problem {
         DrawTools.drawText(fond,ConfigPartie.getNomCourt(),1000,1650,"Arial",Color.BLACK,50,0);
         DrawTools.saveFile(fond,SmartLogic.repertoire+"export\\" + filename + ".png");
 
-    }
-
-    //regarde si dans la liste des indices du problem si on devrait écrire plusieurs indices au meme endroit du tableau
-    public boolean isListIndiceExportable (){
-        List<String> emplacements=new ArrayList<>();
-        for (Indice ind : list_indices){
-            String emplacement = ind.getEmplacement();
-            if (ind.localisationIndice != LocalisationIndice.HORS_TABLEAU){
-                if (emplacements.contains(emplacement)){
-                   // System.out.println("indice au meme endroit dans le tableau : "+emplacement);
-                    return false;
-                }
-                else{
-                    emplacements.add(emplacement);
-                }
-            }
-
-        }
-        System.out.println("Integrable au tableau");
-        return true;
     }
 
     public BufferedImage createTableau (boolean displayBorder, boolean displayRoads){
