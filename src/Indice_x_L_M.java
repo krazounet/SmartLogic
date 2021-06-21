@@ -3,6 +3,8 @@ import Enum.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 //nombre de personne dans Lieu au moment M
@@ -37,9 +39,24 @@ public final class Indice_x_L_M extends Indice {
         }
         else
         {
+    		List<List<Point>> listListPosCharacter = Arrays.asList(
+                    Collections.singletonList(new Point(2, 2)),
+    				Arrays.asList(new Point(1, 2), new Point(3, 2)),
+    				Arrays.asList(new Point(1, 1), new Point(3, 1), new Point(2, 3)),
+    				Arrays.asList(new Point(1, 1), new Point(3, 1), new Point(1, 3), new Point(3, 3)),
+    				Arrays.asList(new Point(1, 1), new Point(3, 1), new Point(2, 2), new Point(1, 3), new Point(3, 3)),
+    				Arrays.asList(new Point(1, 1), new Point(3, 1), new Point(1, 2), new Point(3, 2), new Point(1, 3), new Point(3, 3))
+    				);
+    		
+            for (int index_pers=0;index_pers<combien;index_pers++){
+                BufferedImage image_pers = DrawTools.getImage("image/PersoX.png");
+                DrawTools.drawImageTransformed(image_indice,image_pers,25 * listListPosCharacter.get(combien - 1).get(index_pers).x,25 * listListPosCharacter.get(combien - 1).get(index_pers).y,0,40);
+            }
+
+            /*
             BufferedImage image_px = DrawTools.getImage("image\\PersoX.png");
-            DrawTools.drawImageTransformed(image_indice.getGraphics(),image_px,70,50,0,50);
-            DrawTools.drawText(image_indice,""+combien,25,50, "Arial", Color.BLACK,40,0);
+            DrawTools.drawImageTransformed(image_indice.getGraphics(),image_px,25,50,0,40);
+            DrawTools.drawText(image_indice,"x"+combien,65,50, "Arial", Color.BLACK,40,0);*/
         }
         return image_indice;
     }

@@ -48,17 +48,22 @@ public class Problem {
 
 
     	    List<String> emplacements=new ArrayList<>();
-        	for (int index_indice = 0; index_indice<ConfigPartie.nombre_positions_depart;index_indice++){
-                Indice_P_L_M indice_a_analyser = liste_indices_depart.get(index_indice);
-                if (!emplacements.contains(indice_a_analyser.getEmplacement())) {//si la place est libre
-                    liste_indices_retenus_depart.add(indice_a_analyser);
+
+    	    int index_indice_encour=0;
+            while (liste_indices_retenus_depart.size()!=ConfigPartie.nombre_positions_depart){
+            	Indice_P_L_M indice_a_analyser = liste_indices_depart.get(index_indice_encour);
+                if (!emplacements.contains(indice_a_analyser.getEmplacement())){//si la place est libre
+                	liste_indices_retenus_depart.add(indice_a_analyser);
                     emplacements.add(indice_a_analyser.getEmplacement());
                 }
-	        }
-        	liste_indices_retenus.addAll(liste_indices_retenus_depart);
+
+                index_indice_encour++;
+            }
+
+            liste_indices_retenus.addAll(liste_indices_retenus_depart);
 
 
-            int index_indice_encour=0;
+            index_indice_encour=0;
             while (liste_indices_retenus_autres.size()!=ConfigPartie.nombre_indices){
                 Indice indice_a_analyser = liste_tous_les_indices.get(index_indice_encour);
                 if (indice_a_analyser.localisationIndice == LocalisationIndice.HORS_TABLEAU) {
@@ -166,16 +171,17 @@ public class Problem {
     
     public void export(String filename, boolean onlyUsefull){
 
+    	int zoom_tableau = 190;
         BufferedImage fond = DrawTools.getImage(SmartLogic.repertoire+"Image\\15x15.png");
 
         BufferedImage tableau = this.createTableau(true, true);
 
-        int y_hors_tableau=1370;//positionnnement de depart pour les infos qui ne rentre pas dans le tableau
+        int y_hors_tableau=ConfigPartie.nombre_lieu*zoom_tableau + 3 * zoom_tableau;//positionnnement de depart pour les infos qui ne rentre pas dans le tableau
         for (Indice ind : list_indices) {
             BufferedImage img_ind = ind.export();
 
             if ((ind.localisationIndice == LocalisationIndice.HORS_TABLEAU) && ((ind.usefull || !onlyUsefull))) {
-                DrawTools.drawImageTransformed(fond.getGraphics(), DrawTools.Zoom(img_ind, 200), 1420, y_hors_tableau, 0, 100);
+                DrawTools.drawImageTransformed(fond.getGraphics(), DrawTools.Zoom(img_ind, 200), 1520, y_hors_tableau, 0, 100);
                 y_hors_tableau = y_hors_tableau + 100;
             } else {
                 if (ind.usefull || !onlyUsefull) {
@@ -183,15 +189,15 @@ public class Problem {
                 }
             }
         }
-        tableau=DrawTools.Zoom(tableau,190);
+        tableau=DrawTools.Zoom(tableau,zoom_tableau);
         DrawTools.drawImageTransformed(fond.getGraphics(),tableau,800,850,0,100);
         //cartouche
         for(int idx_pers=0; idx_pers<ConfigPartie.list_personnes_partie.size();idx_pers++){
             BufferedImage image_pers = DrawTools.getImage(SmartLogic.repertoire+"Image\\"+ConfigPartie.list_personnes_partie.get(idx_pers)+".png");
-            DrawTools.drawImageTransformed(fond.getGraphics(),DrawTools.Zoom(image_pers,150),100+(idx_pers*150),100,0,100);
+            DrawTools.drawImageTransformed(fond.getGraphics(),DrawTools.Zoom(image_pers,200),150+(idx_pers*200),150,0,100);
         }
         //caractéristiques
-        DrawTools.drawText(fond,ConfigPartie.getNomCourt(),1000,1650,"Arial",Color.BLACK,50,0);
+        DrawTools.drawText(fond,ConfigPartie.getNomCourt(),870,1650,"Arial",Color.BLACK,50,0);
         DrawTools.saveFile(fond,SmartLogic.repertoire+"export\\" + filename + ".png");
 
     }

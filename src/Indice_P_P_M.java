@@ -1,7 +1,10 @@
 import Enum.*;
 
+import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 //Le personage P est avec le personnage P au moment M
@@ -40,7 +43,24 @@ public final class Indice_P_P_M extends Indice{
     @Override
     public BufferedImage export() {
         BufferedImage image_indice = new BufferedImage(100,100,BufferedImage.TYPE_INT_ARGB);
-        int x_img=25;
+        
+        DrawTools.drawImageTransformed(image_indice, DrawTools.getImage("image/LieuV.png"), 50, 50, 0, 100);
+        
+		List<List<Point>> listListPosCharacter = Arrays.asList(
+                Collections.singletonList(new Point(2, 2)),
+				Arrays.asList(new Point(1, 2), new Point(3, 2)),
+				Arrays.asList(new Point(1, 1), new Point(3, 1), new Point(2, 3)),
+				Arrays.asList(new Point(1, 1), new Point(3, 1), new Point(1, 3), new Point(3, 3)),
+				Arrays.asList(new Point(1, 1), new Point(3, 1), new Point(2, 2), new Point(1, 3), new Point(3, 3)),
+				Arrays.asList(new Point(1, 1), new Point(3, 1), new Point(1, 2), new Point(3, 2), new Point(1, 3), new Point(3, 3))
+				);
+		
+        for (int index_pers=0;index_pers<list_personne.size();index_pers++){
+            BufferedImage image_pers = DrawTools.getImage("image\\"+list_personne.get(index_pers)+".png");
+            DrawTools.drawImageTransformed(image_indice,image_pers,25 * listListPosCharacter.get(list_personne.size() - 1).get(index_pers).x,25 * listListPosCharacter.get(list_personne.size() - 1).get(index_pers).y,0,40);
+        }
+
+/*        int x_img=25;
         int y_img=25;
         for (int index_pers=0;index_pers<list_personne.size();index_pers++){
             BufferedImage image_pers = DrawTools.getImage("image\\"+list_personne.get(index_pers)+".png");
@@ -55,7 +75,8 @@ public final class Indice_P_P_M extends Indice{
             DrawTools.drawImageTransformed(image_indice.getGraphics(),image_lien,50,75,0,50);
         }else{
             DrawTools.drawImageTransformed(image_indice.getGraphics(),image_lien,50,50,0,50);
-        }
+        }*/
+        
         return image_indice;
     }
 
@@ -66,7 +87,7 @@ public final class Indice_P_P_M extends Indice{
                 List<Personne> list_p_temp =new ArrayList<>();
 
                 for (Reservation reservation : solution.solution){
-                  if ((moment == reservation.moment) && (piece == reservation.lieu.piece) && (!list_p_temp.contains(reservation.personne))){
+                  if ((moment == reservation.moment) && (piece == reservation.lieu.piece)){
                      list_p_temp.add(reservation.personne);
                   }
                 }

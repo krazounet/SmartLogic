@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-//occurence totale de du lieu L dans le graphe
+//occurence totale du lieu L dans le graphe
 public final class Indice_x_L extends Indice{
 int compteur;
 Piece piece;
@@ -31,9 +31,10 @@ Piece piece;
     @Override
     public BufferedImage export() {
         BufferedImage image_indice = new BufferedImage(100,100,BufferedImage.TYPE_INT_ARGB);
+        
         BufferedImage image_px = DrawTools.getImage("image\\PersoX.png");
-        DrawTools.drawImageTransformed(image_indice.getGraphics(),image_px,70,50,0,50);
-        DrawTools.drawText(image_indice,""+compteur,25,50, "Arial", Color.BLACK,40,0);
+        DrawTools.drawImageTransformed(image_indice.getGraphics(),image_px,25,50,0,40);
+        DrawTools.drawText(image_indice,"x"+compteur,65,50, "Arial", Color.BLACK,40,0);
         return image_indice;
 
     }

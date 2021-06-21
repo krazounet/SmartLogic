@@ -61,7 +61,9 @@ Moment moment;
         DrawTools.drawImageTransformed(image_indice.getGraphics(),img_lieu,250,50,0,100);
 
          */
-        return DrawTools.getImage(SmartLogic.repertoire+"image\\"+personne+".png");
+    	BufferedImage imageToReturn = new BufferedImage(100, 100, BufferedImage.TYPE_INT_ARGB);
+    	DrawTools.drawImageTransformed(imageToReturn, DrawTools.getImage(SmartLogic.repertoire+"image\\"+personne+".png"), 40, 40, 0, 65);
+        return(imageToReturn);
     }
 
     @Override

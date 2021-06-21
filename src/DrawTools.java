@@ -11,6 +11,12 @@ import javax.imageio.ImageIO;
 
 public class DrawTools
 {
+    public static void drawImageTransformed(BufferedImage source, BufferedImage image, int spotX, int spotY, double rotation, double zoom)
+    {
+        Graphics g = source.getGraphics();
+        drawImageTransformed(g, image, spotX, spotY, rotation, zoom);
+    }
+    
     public static void drawImageTransformed(Graphics g, BufferedImage image, int spotX, int spotY, double rotation, double zoom)
     {
         if(zoom != 100)
