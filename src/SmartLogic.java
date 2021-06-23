@@ -6,13 +6,17 @@ public final class SmartLogic {
 
     public static void main(String[] args) {
 
-        Problem p = new Problem();
-//        p.exportVierge(nom_export + "_EMPTY");
-        p.export(nom_export, false);
-        p.export(nom_export + "_Expert", true);
-        p.exportSolution(nom_export + "_SOL");
-        System.out.println(p);
-        System.out.println("Nom export : "+nom_export);
+    	int nbProblemWanted = 10;
+    	for(int n = 0; n < nbProblemWanted; n++)
+    	{
+	        Problem p = new Problem();
+	//        p.exportVierge(nom_export + "_EMPTY");
+	        p.export(nom_export + n, false);
+	        p.export(nom_export + n +  "_Expert", true);
+	        p.exportSolution(nom_export + n + "_SOL");
+	        System.out.println(p);
+	        System.out.println("Nom export : " + nom_export + n);
+    	}
     }
 
 }

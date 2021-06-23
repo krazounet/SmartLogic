@@ -176,7 +176,7 @@ public class Problem {
 
         BufferedImage tableau = this.createTableau(true, true);
 
-        int y_hors_tableau=ConfigPartie.nombre_lieu*zoom_tableau + 3 * zoom_tableau;//positionnnement de depart pour les infos qui ne rentre pas dans le tableau
+        int y_hors_tableau= 950 + ConfigPartie.nombre_lieu*zoom_tableau/2;//positionnnement de depart pour les infos qui ne rentre pas dans le tableau
         for (Indice ind : list_indices) {
             BufferedImage img_ind = ind.export();
 
@@ -194,7 +194,8 @@ public class Problem {
         //cartouche
         for(int idx_pers=0; idx_pers<ConfigPartie.list_personnes_partie.size();idx_pers++){
             BufferedImage image_pers = DrawTools.getImage(SmartLogic.repertoire+"Image\\"+ConfigPartie.list_personnes_partie.get(idx_pers)+".png");
-            DrawTools.drawImageTransformed(fond.getGraphics(),DrawTools.Zoom(image_pers,200),150+(idx_pers*200),150,0,100);
+            DrawTools.drawImageTransformed(fond.getGraphics(),DrawTools.Zoom(image_pers,150),150,150+(idx_pers*150),0,100);
+            DrawTools.drawImageTransformed(fond.getGraphics(),DrawTools.getImage(SmartLogic.repertoire+"Image\\"+ConfigPartie.list_personnes_partie.get(idx_pers)+"M"+ConfigPartie.nombre_moment+".png"),270,150+(idx_pers*150),0,60);
         }
         //caractéristiques
         DrawTools.drawText(fond,ConfigPartie.getNomCourt(),870,1650,"Arial",Color.BLACK,50,0);
@@ -209,10 +210,11 @@ public class Problem {
         //chaque element du tableau fait 100*100 en pixel.
         BufferedImage image_tableau = new BufferedImage((ConfigPartie.nombre_moment+2)*100 + 100,(ConfigPartie.nombre_lieu+2)*100,BufferedImage.TYPE_INT_ARGB);
         Graphics graph_tableau= image_tableau.getGraphics();
-        
+ 
+        Graphics2D g2 = (Graphics2D) graph_tableau;
+
         if(displayRoads)
         {
-	        Graphics2D g2 = (Graphics2D) graph_tableau;
 	        g2.setColor(Color.BLACK);
 			g2.setStroke(new BasicStroke(7));
 	        for(Conexion conexionToDraw : plan.list_conexions)
@@ -268,6 +270,13 @@ public class Problem {
 	            x_ligne=x_ligne+100;
 	        }
         }
+        
+        g2.setColor(Color.BLACK);
+        g2.setStroke(new BasicStroke(10));
+        g2.drawLine(200, 100, 200 + 100 *  ConfigPartie.nombre_moment, 100);
+        g2.drawLine(200 + 100 *  ConfigPartie.nombre_moment, 100, 200 + 100 *  ConfigPartie.nombre_moment, 100 + 100 *  ConfigPartie.nombre_lieu);
+        g2.drawLine(200 + 100 *  ConfigPartie.nombre_moment, 100 + 100 *  ConfigPartie.nombre_lieu, 200, 100 + 100 *  ConfigPartie.nombre_lieu);
+        g2.drawLine(200, 100 + 100 *  ConfigPartie.nombre_lieu, 200, 100);
 
         return image_tableau;
     }
