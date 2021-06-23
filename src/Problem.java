@@ -191,6 +191,11 @@ public class Problem {
         }
         tableau=DrawTools.Zoom(tableau,zoom_tableau);
         DrawTools.drawImageTransformed(fond.getGraphics(),tableau,800,850,0,100);
+        for(int momentX = 0; momentX < ConfigPartie.nombre_moment; momentX++)
+	        for(int spotY = 0; spotY < ConfigPartie.nombre_perso; spotY++)
+	        	DrawTools.drawImageTransformed(fond, DrawTools.getImage("image/P" + (ConfigPartie.nombre_perso - spotY) + "M1.png"), 740 - ((ConfigPartie.nombre_moment+2) * zoom_tableau + zoom_tableau) / 2 + (momentX + 2) * zoom_tableau + zoom_tableau / 2, 950 - ((ConfigPartie.nombre_lieu + 2) * zoom_tableau) / 2 - 35 * spotY, 0, 75);
+        
+
         //cartouche
         for(int idx_pers=0; idx_pers<ConfigPartie.list_personnes_partie.size();idx_pers++){
             BufferedImage image_pers = DrawTools.getImage(SmartLogic.repertoire+"Image\\"+ConfigPartie.list_personnes_partie.get(idx_pers)+".png");
@@ -238,7 +243,8 @@ public class Problem {
         int y_moment=55;
         for (Moment moment : ConfigPartie.list_moments_partie){
             BufferedImage img_moment = DrawTools.getImage(SmartLogic.repertoire+"Image\\"+moment+".png");
-            DrawTools.drawImageCenter(graph_tableau,img_moment,x_moment,y_moment);
+            DrawTools.drawImageTransformed(graph_tableau, img_moment, x_moment, y_moment, 0, 100);
+
             x_moment=x_moment+100;
         }
         //les lignes suivantes sont donc pour les lieus.
@@ -247,6 +253,7 @@ public class Problem {
             int x_lieu = 150;
 
             BufferedImage img_piece = DrawTools.getImage(SmartLogic.repertoire+"Image\\"+piece+".png");
+//            BufferedImage img_piece = DrawTools.getImage(SmartLogic.repertoire+"Image\\LieuV.png");
             DrawTools.drawImageCenter(graph_tableau,img_piece,x_lieu,y_lieu);
             for (int num_moment=0 ; num_moment<=ConfigPartie.list_moments_partie.size() ; num_moment++){
                 x_lieu=x_lieu+100;

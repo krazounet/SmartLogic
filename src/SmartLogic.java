@@ -6,7 +6,7 @@ public final class SmartLogic {
 
     public static void main(String[] args) {
 
-    	int nbProblemWanted = 10;
+    	int nbProblemWanted = 1;
     	for(int n = 0; n < nbProblemWanted; n++)
     	{
 	        Problem p = new Problem();
